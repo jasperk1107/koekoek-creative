@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koekoek Creative – Kandidaten zonder recruiter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #074746;
+      --brand-mid: #0a5d5b;
+      --cta: #52aa75;
+      --cta-dark: #3d8f5e;
+      --ink: #0c1818;
+      --muted: #556363;
+      --surface: #f2f5f4;
+      --line: #dce7e5;
+      --white: #fff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: var(--brand);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(82,170,117,0.25);
+    }
+    .topbar strong { color: var(--cta); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--brand);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-badge {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--brand);
+      color: white;
+      padding: 3px 7px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 24px; }
+    .nav-tel {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-tel:hover { color: var(--brand); }
+    .btn-cta {
+      background: var(--cta);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      padding: 11px 24px;
+      text-decoration: none;
+      border: 2px solid var(--cta);
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .btn-cta:hover { background: transparent; color: var(--cta); }
+
+    /* ─── HERO ─── */
+    .hero-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 72px 32px 80px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 72px;
+      align-items: center;
+    }
+    @media (max-width: 800px) {
+      .hero-wrap { grid-template-columns: 1fr; gap: 48px; padding: 48px 24px 56px; }
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cta-dark);
+      background: #e5f5ed;
+      padding: 5px 12px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--cta);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .hero-h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--brand);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 36px;
+      font-weight: 400;
+      max-width: 520px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      background: var(--cta);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 14px 28px;
+      text-decoration: none;
+      border: 2px solid var(--cta);
+      transition: all 0.18s;
+      letter-spacing: 0.01em;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--cta-dark); border-color: var(--cta-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--brand);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 14px 28px;
+      text-decoration: none;
+      border: 2px solid var(--brand);
+      transition: all 0.18s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--brand); color: white; }
+
+    .trust-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .trust-item svg { color: var(--cta); }
+    .trust-item a { color: var(--muted); text-decoration: none; }
+    .trust-item a:hover { color: var(--brand); }
+
+    /* Hero card */
+    .hero-card {
+      background: var(--brand);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(82,170,117,0.12);
+    }
+    .hc-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 8px;
+    }
+    .hc-big {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--cta);
+      margin-bottom: 6px;
+    }
+    .hc-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+    }
+    .hc-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 24px 0;
+    }
+    .hc-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.45;
+    }
+    .hc-check-icon {
+      color: var(--cta);
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-outer {
+      background: var(--brand);
+      overflow: hidden;
+      padding: 13px 0;
+      border-top: 1px solid rgba(82,170,117,0.2);
+    }
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-item {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      padding: 0 40px;
+    }
+    .ticker-item span { color: var(--cta); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── SHARED SECTION STYLES ─── */
+    .section-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    @media (max-width: 600px) { .section-wrap { padding: 0 20px; } }
+
+    .s-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cta-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .s-label::before { content: ''; width: 20px; height: 2px; background: var(--cta); }
+
+    .s-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.9rem, 3vw, 2.7rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .s-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+    .s-rule {
+      width: 40px;
+      height: 3px;
+      background: var(--cta);
+      margin: 16px 0 32px;
+    }
+
+    /* ─── PROBLEM ─── */
+    .problem-section {
+      background: var(--surface);
+      padding: 88px 0;
+    }
+    .problem-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 800px) { .problem-cards { grid-template-columns: 1fr; } }
+
+    .problem-card {
+      background: var(--white);
+      padding: 36px 28px;
+      transition: background 0.2s;
+    }
+    .problem-card:hover { background: #f8fbfa; }
+
+    .tag-bad {
+      display: inline-block;
+      background: #fdecea;
+      color: #c0392b;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .pc-icon {
+      width: 40px; height: 40px;
+      background: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .problem-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .problem-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .problem-callout {
+      margin-top: 2px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--brand);
+      padding: 24px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .problem-callout svg { color: var(--brand); flex-shrink: 0; margin-top: 2px; }
+    .problem-callout p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+    .problem-callout strong { color: var(--brand); }
+
+    /* ─── 85/15 SPLIT ─── */
+    .latent-section { padding: 88px 0 0; }
+    .latent-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 48px;
+      gap: 2px;
+      background: var(--line);
+    }
+    @media (max-width: 700px) { .latent-split { grid-template-columns: 1fr; } }
+
+    .l-panel {
+      padding: 56px 44px;
+    }
+    .l-panel.dim { background: #eff4f3; }
+    .l-panel.bright { background: var(--brand); color: white; }
+
+    .l-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-bottom: 24px;
+    }
+    .dim .l-badge { background: #dce7e5; color: var(--muted); }
+    .bright .l-badge { background: rgba(82,170,117,0.2); color: var(--cta); }
+
+    .l-pct {
+      font-family: 'DM Serif Display', serif;
+      font-size: 5.5rem;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .dim .l-pct { color: #9ab4b2; }
+    .bright .l-pct { color: var(--cta); }
+
+    .l-panel h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+    .dim h3 { color: var(--ink); }
+    .bright h3 { color: white; }
+
+    .l-panel p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .dim p { color: var(--muted); }
+    .bright p { color: rgba(255,255,255,0.7); }
+
+    .latent-insight {
+      background: var(--ink);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .latent-insight svg { color: var(--cta); flex-shrink: 0; }
+    .latent-insight p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+    }
+    .latent-insight strong { color: white; }
+
+    /* ─── METHOD ─── */
+    .method-section {
+      background: var(--brand);
+      padding: 88px 0;
+    }
+    .method-section .s-label { color: var(--cta); }
+    .method-section .s-label::before { background: var(--cta); }
+    .method-section .s-title { color: white; }
+    .method-section .s-sub { color: rgba(255,255,255,0.6); }
+
+    .method-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: rgba(255,255,255,0.06);
+    }
+    @media (max-width: 900px) { .method-steps { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px) { .method-steps { grid-template-columns: 1fr; } }
+
+    .method-step {
+      background: rgba(255,255,255,0.04);
+      padding: 32px 28px;
+      border-top: 3px solid var(--cta);
+      transition: background 0.2s;
+    }
+    .method-step:hover { background: rgba(255,255,255,0.08); }
+    .method-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.6rem;
+      color: rgba(255,255,255,0.1);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .method-step h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .method-step p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    .method-footer {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .method-footer-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      color: var(--cta);
+      line-height: 1;
+    }
+    .method-footer-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .method-footer-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ─── RESULTS ─── */
+    .results-section { padding: 88px 0; background: var(--white); }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr; } }
+
+    .result-card {
+      background: var(--surface);
+      padding: 40px 32px;
+      border-top: 4px solid var(--cta);
+      transition: background 0.2s;
+    }
+    .result-card:hover { background: #e8f0ef; }
+
+    .result-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.4rem;
+      color: var(--brand);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .result-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .result-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .results-banner {
+      margin-top: 2px;
+      background: var(--ink);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .rb-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: var(--cta);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .rb-text h4 { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 4px; }
+    .rb-text p { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+
+    /* ─── BENEFITS ─── */
+    .benefits-section { padding: 88px 0; background: var(--surface); }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 600px) { .benefits-grid { grid-template-columns: 1fr; } }
+
+    .benefit-item {
+      background: var(--white);
+      padding: 32px 28px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: background 0.2s;
+    }
+    .benefit-item:hover { background: #f8fbfa; }
+
+    .benefit-icon {
+      width: 40px; height: 40px;
+      background: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .benefit-item h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .benefit-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ─── OFFER ─── */
+    .offer-section { padding: 88px 0; background: var(--white); }
+    .offer-box {
+      background: var(--brand);
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 800px) { .offer-box { grid-template-columns: 1fr; } }
+
+    .offer-left {
+      padding: 52px 48px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (max-width: 800px) { .offer-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); } }
+
+    .offer-left h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+    .offer-left p {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .btn-inv {
+      display: inline-block;
+      background: var(--cta);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      text-decoration: none;
+      border: 2px solid var(--cta);
+      transition: all 0.18s;
+      letter-spacing: 0.01em;
+    }
+    .btn-inv:hover { background: transparent; color: var(--cta); }
+
+    .offer-guarantee {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(82,170,117,0.12);
+      border-left: 3px solid var(--cta);
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.55;
+    }
+    .offer-guarantee strong { color: var(--cta); }
+
+    .offer-right {
+      padding: 52px 48px;
+    }
+
+    .offer-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .offer-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .offer-item svg { color: var(--cta); flex-shrink: 0; margin-top: 2px; }
+    .offer-item-text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+    }
+    .offer-item-text strong { color: white; }
+
+    /* ─── URGENCY ─── */
+    .urgency-section {
+      background: #fffbef;
+      border-top: 1px solid #eddfa0;
+      border-bottom: 1px solid #eddfa0;
+      padding: 72px 24px;
+    }
+    .urgency-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .urgency-inner .s-label { justify-content: center; }
+    .urgency-inner .s-label::before { display: none; }
+    .urgency-inner .s-title { color: var(--ink); }
+    .urgency-inner .s-rule { margin: 16px auto 24px; }
+    .urgency-inner > p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .urgency-perks {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .urgency-perk {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .urgency-perk-dot {
+      width: 7px; height: 7px;
+      background: var(--cta);
+      border-radius: 50%;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-section { background: var(--surface); padding: 88px 0; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 800px) { .testi-grid { grid-template-columns: 1fr; } }
+
+    .testi-card {
+      background: var(--white);
+      padding: 32px 28px;
+      transition: background 0.2s;
+    }
+    .testi-card:hover { background: #f8fbfa; }
+    .testi-stars { color: #f59e0b; font-size: 0.82rem; margin-bottom: 16px; letter-spacing: 2px; }
+    .testi-quote {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 40px; height: 40px;
+      background: var(--brand);
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
+    .testi-company { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── FAQ ─── */
+    .faq-section { padding: 88px 0; background: var(--white); }
+    .faq-inner { max-width: 680px; margin: 48px auto 0; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      padding: 22px 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .faq-q:hover { color: var(--brand); }
+    .faq-toggle {
+      font-size: 1.2rem;
+      color: var(--brand);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      font-weight: 300;
+    }
+    .faq-toggle.open { transform: rotate(45deg); }
+    .faq-a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-bottom: 24px;
+      display: none;
+    }
+    .faq-a.open { display: block; }
+
+    /* ─── FINAL CTA ─── */
+    .final-cta {
+      background: var(--brand);
+      padding: 112px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: rgba(82,170,117,0.07);
+      pointer-events: none;
+    }
+    .final-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.9rem, 3.8vw, 3.2rem);
+      color: white;
+      max-width: 680px;
+      margin: 0 auto 20px;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+    .final-cta > p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 460px;
+      margin: 0 auto 44px;
+      line-height: 1.65;
+      position: relative;
+    }
+    .final-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .btn-inv-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 14px 28px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-inv-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+    .final-meta {
+      margin-top: 36px;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      position: relative;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #08141414;
+      background: #080e0e;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.75rem;
+    }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <strong>Beperkte plekken beschikbaar deze maand</strong> — meld je aan voor de wachtrij
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      Koekoek Creative
+      <span class="nav-badge">Beta</span>
+    </div>
+    <div class="nav-right">
+      <a href="tel:+31646528646" class="nav-tel">+31 6 46528646</a>
+      <a href="#demo" class="btn-cta">Gratis demo →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section>
+  <div class="hero-wrap">
+    <div>
+      <span class="hero-eyebrow">Recruitment marketing · Geen bureaukosten</span>
+      <h1 class="hero-h1">
+        Neem je volgende medewerker aan <em>zonder €10.000+</em> recruiterfees
+      </h1>
+      <p class="hero-sub">
+        Wij adverteren jouw vacature op social media, kwalificeren de sollicitanten automatisch, en sturen jou alleen de beste kandidaten toe — al binnen 48 uur.
+      </p>
+      <div class="hero-btns">
+        <a href="#demo" class="btn-primary">Ontvang gratis demo →</a>
+        <a href="#info" class="btn-outline">Meer informatie</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          4.5/5 klantreviews
+        </div>
+        <div class="trust-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <a href="tel:+31646528646">+31 6 46528646</a>
+        </div>
+        <div class="trust-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <a href="mailto:Jasper@koekoekcreative.nl">Jasper@koekoekcreative.nl</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hc-label">Gemiddeld per campagne</div>
+      <div class="hc-big">20+</div>
+      <div class="hc-desc">gekwalificeerde kandidaten</div>
+      <hr class="hc-divider" />
+      <div class="hc-check">
+        <svg class="hc-check-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        Eerste sollicitaties binnen 48 uur na livegang
+      </div>
+      <div class="hc-check">
+        <svg class="hc-check-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        Bereikt 85% latent werkzoekenden via social media
+      </div>
+      <div class="hc-check">
+        <svg class="hc-check-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        Automatische kwalificatie — alleen relevante kandidaten
+      </div>
+      <div class="hc-check">
+        <svg class="hc-check-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        No cure, no pay garantie
+      </div>
+      <hr class="hc-divider" />
+      <div style="font-size:0.78rem; color: rgba(255,255,255,0.4); letter-spacing: 0.04em; text-transform: uppercase;">Live binnen 5 werkdagen</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-outer">
+  <div class="ticker-track">
+    <span class="ticker-item">Binnen <span>48 uur</span> kandidaten</span>
+    <span class="ticker-item">Geen recruiter fees</span>
+    <span class="ticker-item">Alleen <span>gekwalificeerde</span> sollicitanten</span>
+    <span class="ticker-item"><span>85%</span> latent werkzoekenden</span>
+    <span class="ticker-item">Koekoek <span>Methode™</span></span>
+    <span class="ticker-item">Tot <span>87%</span> goedkoper</span>
+    <span class="ticker-item">Live binnen <span>5 dagen</span></span>
+    <span class="ticker-item">Binnen <span>48 uur</span> kandidaten</span>
+    <span class="ticker-item">Geen recruiter fees</span>
+    <span class="ticker-item">Alleen <span>gekwalificeerde</span> sollicitanten</span>
+    <span class="ticker-item"><span>85%</span> latent werkzoekenden</span>
+    <span class="ticker-item">Koekoek <span>Methode™</span></span>
+    <span class="ticker-item">Tot <span>87%</span> goedkoper</span>
+    <span class="ticker-item">Live binnen <span>5 dagen</span></span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">Het echte probleem</div>
+    <h2 class="s-title reveal">Waarom reageert er niemand?</h2>
+    <div class="s-rule reveal"></div>
+    <p class="s-sub reveal">Je hebt het allemaal geprobeerd: Indeed, LinkedIn, een recruiter. En toch staat de vacature er al weken. Herkenbaar?</p>
+
+    <div class="problem-cards">
+      <div class="problem-card reveal">
+        <span class="tag-bad">Frustratie</span>
+        <div class="pc-icon">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+        </div>
+        <h3>"Er reageert niemand"</h3>
+        <p>Je vacature staat online, maar er komt niets binnen. Of je ontvangt reacties die nergens op slaan. De stilte is oorverdovend.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <span class="tag-bad">Kosten</span>
+        <div class="pc-icon">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3>Recruiter: €10.000+</h3>
+        <p>En dan moet je nog maar hopen dat de kandidaat bevalt — en blijft. Heb je pech, dan begin je van voren af aan. Opnieuw €10.000.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <span class="tag-bad">Gevolg</span>
+        <div class="pc-icon">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+        </div>
+        <h3>Groei staat stil</h3>
+        <p>Elk project dat niet doorgaat, elke klant die wacht, elke collega die overwerkt raakt — het kost je meer dan je denkt.</p>
+      </div>
+    </div>
+
+    <div class="problem-callout reveal">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      <p><strong>De echte reden?</strong> Je zoekt op de verkeerde plek. Jobboards en recruiters richten zich op de 15% mensen die <em>actief</em> een baan zoeken. De beste kandidaten zitten niet in die groep.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 85/15 SPLIT -->
+<section class="latent-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">De kern van het probleem</div>
+    <h2 class="s-title reveal">Jij mist 85% van de markt</h2>
+    <div class="s-rule reveal"></div>
+    <p class="s-sub reveal">Slechts 15% van werkend Nederland zoekt actief naar een baan. Maar 85% staat open voor iets beters — als je ze maar bereikt.</p>
+  </div>
+
+  <div class="latent-split reveal">
+    <div class="l-panel dim">
+      <span class="l-badge">Jobboards · Indeed · LinkedIn</span>
+      <div class="l-pct">15%</div>
+      <h3>Actief zoekenden</h3>
+      <p>Mensen die actief op zoek zijn naar een baan. Ze staan op jobboards, zijn ingeschreven bij bureaus, en solliciteren massaal. Dit is wie jij nu bereikt — en dit is de minst exclusieve groep.</p>
+    </div>
+    <div class="l-panel bright">
+      <span class="l-badge">Social media · Facebook · Instagram</span>
+      <div class="l-pct">85%</div>
+      <h3>Open voor een switch</h3>
+      <p>Ze hebben een baan, zijn niet actief aan het zoeken — maar als de juiste kans voorbijkomt, stappen ze over. Dit zijn de beste kandidaten. En wij bereiken hen precies op het moment dat het telt.</p>
+    </div>
+  </div>
+
+  <div class="latent-insight reveal">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+    <p><strong>De Koekoek Methode™ richt zich op die 85%.</strong> Via doelgerichte social media advertenties bereiken we mensen die nóóit op een jobboard te vinden zijn — maar wél degene zijn die je wilt aannemen. Dat is het verschil.</p>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method-section" id="info">
+  <div class="section-wrap">
+    <div class="s-label reveal">De aanpak</div>
+    <h2 class="s-title reveal">De Koekoek Methode™</h2>
+    <div class="s-rule reveal" style="background: var(--cta);"></div>
+    <p class="s-sub reveal">Een bewezen systeem dat jouw vacature van onzichtbaar naar onweerstaanbaar maakt — in minder dan een week.</p>
+
+    <div class="method-steps">
+      <div class="method-step reveal">
+        <div class="method-num">01</div>
+        <h3>Aantrekken</h3>
+        <p>We bouwen een gerichte advertentie op Meta (Facebook & Instagram) die de juiste mensen aanspreekt — ook als ze niet actief zoeken.</p>
+      </div>
+      <div class="method-step reveal reveal-delay-1">
+        <div class="method-num">02</div>
+        <h3>Kwalificeren</h3>
+        <p>Een slimme quiz-funnel filtert kandidaten automatisch op motivatie, ervaring en beschikbaarheid. Jij krijgt alleen de serieuze sollicitanten.</p>
+      </div>
+      <div class="method-step reveal reveal-delay-2">
+        <div class="method-num">03</div>
+        <h3>Doorsturen</h3>
+        <p>Gekwalificeerde kandidaten komen direct bij jou terecht — inclusief hun antwoorden, contactgegevens en beschikbaarheid.</p>
+      </div>
+      <div class="method-step reveal reveal-delay-3">
+        <div class="method-num">04</div>
+        <h3>Optimaliseren</h3>
+        <p>We monitoren de campagne en sturen bij waar nodig. Elke dag betere resultaten, tot je de juiste persoon hebt gevonden.</p>
+      </div>
+    </div>
+
+    <div class="method-footer reveal">
+      <div>
+        <div class="method-footer-label">Live binnen</div>
+        <div class="method-footer-num">5 dagen</div>
+        <div class="method-footer-desc">Eerste kandidaten binnen 48 uur na livegang</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">Resultaten</div>
+    <h2 class="s-title reveal">Wat het oplevert</h2>
+    <div class="s-rule reveal"></div>
+    <p class="s-sub reveal">Geen mooie praatjes. Gewoon wat onze klanten hebben bereikt.</p>
+
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-num">65+</div>
+        <h3>Kandidaten in 1 maand</h3>
+        <p>Een technisch installatiebedrijf ontving in één campagnemaand 65+ gekwalificeerde sollicitanten voor drie openstaande functies.</p>
+      </div>
+      <div class="result-card reveal reveal-delay-1">
+        <div class="result-num">3</div>
+        <h3>Monteurs aangenomen</h3>
+        <p>Drie vakkundige monteurs aangenomen vanuit één campagne. Totale kosten: €500 advertentiebudget + onze service. Geen recruiterkosten.</p>
+      </div>
+      <div class="result-card reveal reveal-delay-2">
+        <div class="result-num">13</div>
+        <h3>Dagen tot eerste aanstelling</h3>
+        <p>Van campagnestart tot handtekening onder het contract — 13 dagen. De markt is er. Je moet hem alleen kunnen bereiken.</p>
+      </div>
+    </div>
+
+    <div class="results-banner reveal">
+      <div class="rb-num">87%</div>
+      <div class="rb-text">
+        <h4>Goedkoper dan traditionele recruiters</h4>
+        <p>Gemiddelde recruiter fee: €12.000. Onze kosten: €500 advertentiebudget. Het rekensommetje is snel gemaakt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">Waarom wij</div>
+    <h2 class="s-title reveal">Alles geregeld,<br>jij hires.</h2>
+    <div class="s-rule reveal"></div>
+
+    <div class="benefits-grid">
+      <div class="benefit-item reveal">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div>
+          <h3>Geen recruiterfees</h3>
+          <p>Betaal €500 rechtstreeks aan Meta voor advertenties. Geen commissie per aangenomen kandidaat, geen verborgen kosten.</p>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div>
+          <h3>Kandidaten binnen dagen</h3>
+          <p>Geen weken wachten. Eerste gekwalificeerde sollicitaties komen al binnen 48 uur na livegang van de campagne binnen.</p>
+        </div>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div>
+          <h3>Alleen gekwalificeerde sollicitanten</h3>
+          <p>Onze quiz-funnel filtert op voorhand. Jij ziet alleen de mensen die écht matchen met de functie en jouw bedrijf.</p>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg></div>
+        <div>
+          <h3>Jij houdt controle</h3>
+          <p>Geen recruiter die beslist wie je ziet. Wij sturen kandidaten door, jij maakt de keuze. Volledig transparant.</p>
+        </div>
+      </div>
+      <div class="benefit-item reveal">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <div>
+          <h3>No cure, no pay</h3>
+          <p>Geen resultaat? Dan betaal je niets voor onze werkzaamheden. Wij nemen het risico. Jij neemt de beslissing.</p>
+        </div>
+      </div>
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg></div>
+        <div>
+          <h3>Wij bouwen alles</h3>
+          <p>Advertenties, landingspagina, quiz-funnel, optimalisatie — wij regelen het van A tot Z. Jij hoeft alleen beschikbaar te zijn voor de gesprekken.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer-section" id="demo">
+  <div class="section-wrap">
+    <div class="s-label reveal">Het aanbod</div>
+    <h2 class="s-title reveal">Simpel. Eerlijk. Zonder risico.</h2>
+    <div class="s-rule reveal"></div>
+    <p class="s-sub reveal">Geen ingewikkelde contracten. Geen verstopte kosten. Gewoon een helder aanbod.</p>
+
+    <div class="offer-box reveal">
+      <div class="offer-left">
+        <h2>Eén campagne.<br>Tientallen kandidaten.</h2>
+        <p>Je betaalt €500 direct aan Meta voor advertentiekosten. Dat is alles. Wij bouwen de volledige campagne: advertentie, quiz-funnel, landingspagina en optimalisatie.</p>
+        <a href="mailto:Jasper@koekoekcreative.nl?subject=Gratis Demo Aanvraag" class="btn-inv">Plan een gratis demo →</a>
+        <div class="offer-guarantee">
+          <strong>Geld-terug-garantie.</strong> Geen resultaat binnen de afgesproken periode? Dan betaal je niets voor onze dienstverlening. Punt.
+        </div>
+      </div>
+      <div class="offer-right">
+        <div class="offer-items">
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>€500 advertentiebudget</strong> — gaat direct naar Meta, niet naar ons</div>
+          </div>
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>Complete campagne opbouw</strong> — advertenties, funnel, alles</div>
+          </div>
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>Live binnen 5 werkdagen</strong> — snel resultaat, geen eindeloos traject</div>
+          </div>
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>Eerste kandidaten binnen 48 uur</strong> na livegang</div>
+          </div>
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>Geen cure, no pay</strong> — geen resultaat, geen rekening</div>
+          </div>
+          <div class="offer-item">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <div class="offer-item-text"><strong>Persoonlijke onboarding</strong> — wij begeleiden je van start tot aanstelling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency-section">
+  <div class="urgency-inner">
+    <div class="s-label reveal">Beperkte beschikbaarheid</div>
+    <h2 class="s-title reveal">De wachtrij groeit. Wacht niet te lang.</h2>
+    <div class="s-rule reveal"></div>
+    <p class="reveal">We nemen bewust een beperkt aantal klanten per maand aan om iedereen persoonlijke aandacht te geven. Op dit moment zijn er nog enkele plekken vrij.</p>
+    <div class="urgency-perks reveal">
+      <div class="urgency-perk"><div class="urgency-perk-dot"></div>Wachtrij groeit wekelijks</div>
+      <div class="urgency-perk"><div class="urgency-perk-dot"></div>Beperkte plekken per maand</div>
+      <div class="urgency-perk"><div class="urgency-perk-dot"></div>Persoonlijke onboarding</div>
+    </div>
+    <a href="mailto:Jasper@koekoekcreative.nl?subject=Wachtrij Aanmelding" class="btn-primary reveal" style="font-size:1rem; padding: 15px 36px;">Meld je aan voor de wachtrij →</a>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">Ervaringen</div>
+    <h2 class="s-title reveal">Wat klanten zeggen</h2>
+    <div class="s-rule reveal"></div>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"We zaten al maanden zonder monteur. Binnen twee weken na de campagne hadden we drie goede gesprekken gevoerd en één aangenomen. Het werkt echt."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MV</div>
+          <div>
+            <div class="testi-name">Marc van den Berg</div>
+            <div class="testi-company">Directeur, Van den Berg Installaties</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Ik had eerder een recruiter ingeschakeld voor €11.000. Die leverde één kandidaat — die na drie maanden alweer weg was. Dit kostte me €500 en ik heb nu twee goede mensen."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SH</div>
+          <div>
+            <div class="testi-name">Sandra Hoekstra</div>
+            <div class="testi-company">Eigenaar, Hoekstra Bouw</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★☆</div>
+        <p class="testi-quote">"Sceptisch geweest, eerlijk gezegd. Maar de resultaten spreken voor zich. Meer dan 40 serieuze sollicitanten in de eerste twee weken. Dat hadden we nog nooit meegemaakt."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RL</div>
+          <div>
+            <div class="testi-name">Rob Lammers</div>
+            <div class="testi-company">HR Manager, Lammers Transport BV</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-wrap">
+    <div class="s-label reveal">Veelgestelde vragen</div>
+    <h2 class="s-title reveal">Jouw vragen, eerlijk beantwoord</h2>
+    <div class="s-rule reveal"></div>
+
+    <div class="faq-inner">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Hoe snel kan ik resultaat verwachten?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Je campagne staat binnen 5 werkdagen live. De eerste kandidaten komen gemiddeld binnen 48 uur na livegang binnen. Afhankelijk van de functie en regio kun je in de eerste week al meerdere serieuze sollicitaties verwachten.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Wat als het niet werkt?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Dan betaal je niets voor onze dienstverlening. We hanteren een no cure, no pay beleid. Het advertentiebudget (€500 aan Meta) is al besteed, maar onze werkzaamheden brengen we niet in rekening als er geen resultaat is. Je loopt dus minimaal risico.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Moet ik zelf veel doen?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Nee. Wij regelen de advertentie, de funnel, de landingspagina en de optimalisatie. We hebben aan het begin een korte intake nodig (30-45 minuten) om de vacature en het bedrijf goed te begrijpen. Daarna ontvang jij de gekwalificeerde kandidaten en plan je zelf de gesprekken in.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Werkt dit voor mijn branche?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">De methode is bewezen effectief in techniek, transport, bouw, productie, horeca en administratie. We werken het beste voor bedrijven met 20+ medewerkers die specifieke, moeilijk invulbare functies hebben. Twijfel je of het voor jouw sector werkt? Vraag een gratis demo aan — dan kijken we het samen na.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">Hoe werkt de betaling?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Het €500 advertentiebudget betaal je rechtstreeks aan Meta via jouw eigen Ads-account of via ons beheerd account. Daarmee houd jij volledige controle. Onze servicevergoeding wordt besproken tijdens de demo en is afhankelijk van de campagneduur en omvang.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Stop met wachten op sollicitanten. Zorg dat ze bij jou aankloppen.</h2>
+  <p>Terwijl jij dit leest, zijn er kandidaten actief op social media die openstaan voor jouw vacature. Je hoeft ze alleen maar te bereiken.</p>
+  <div class="final-btns">
+    <a href="mailto:Jasper@koekoekcreative.nl?subject=Gratis Demo Aanvraag" class="btn-inv" style="font-size:1rem; padding:16px 36px;">Ontvang gratis demo →</a>
+    <a href="tel:+31646528646" class="btn-inv-ghost">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      Bel direct: +31 6 46528646
+    </a>
+  </div>
+  <div class="final-meta">No cure no pay · Live binnen 5 dagen · Beperkte plekken beschikbaar</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Koekoek Creative · Powered by de <strong style="color:rgba(255,255,255,0.5);">Koekoek Methode™</strong></p>
+  <p style="margin-top:8px;">
+    <a href="mailto:Jasper@koekoekcreative.nl">Jasper@koekoekcreative.nl</a> ·
+    <a href="tel:+31646528646">+31 6 46528646</a> ·
+    <a href="#">Privacybeleid</a>
+  </p>
+</footer>
+
+<script>
+  // FAQ
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const toggle = el.querySelector('.faq-toggle');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-toggle.open').forEach(t => t.classList.remove('open'));
+    if (!isOpen) { answer.classList.add('open'); toggle.classList.add('open'); }
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
