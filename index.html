@@ -12,6 +12,7 @@
     @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
     @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
     @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
+    @font-face { font-family:'Eveleth'; src:url('assets/fonts/eveleth-clean-regular.otf') format('opentype'); font-weight:700; font-display:swap; }
 
     :root {
       --ink:     #0d1412;
@@ -26,22 +27,26 @@
       --white:   #ffffff;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: var(--ink);
-      background: var(--white);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      font-family:'Outfit',system-ui,sans-serif;
+      color:var(--ink);
+      background:var(--white);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
     }
 
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(18px); }
       to   { opacity:1; transform:translateY(0); }
     }
+    @keyframes pulse-dot {
+      0%,100% { transform:scale(1); opacity:1; }
+      50%      { transform:scale(1.6); opacity:.4; }
+    }
     .r { opacity:0; }
-    .r.in { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .r.in { animation:fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
     .r.in.d1 { animation-delay:80ms; }
     .r.in.d2 { animation-delay:160ms; }
     .r.in.d3 { animation-delay:240ms; }
@@ -50,20 +55,35 @@
     .wrap { max-width:1200px; margin:0 auto; padding:0 40px; }
     @media(max-width:640px){ .wrap{ padding:0 20px; } }
 
-    /* ── NAV ── */
+    /* ── FLOATING NAV ── */
     nav {
-      position:sticky; top:0; z-index:100;
-      background:rgba(255,255,255,0.94);
-      backdrop-filter:blur(20px);
-      -webkit-backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:100;
+      width:calc(100% - 48px);
+      max-width:1160px;
+      background:rgba(255,255,255,0.88);
+      backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      border:1px solid rgba(226,231,230,0.9);
+      border-radius:14px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+      transition:box-shadow 0.3s cubic-bezier(0.16,1,0.3,1), background 0.3s;
+    }
+    nav.scrolled {
+      box-shadow:0 8px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.04);
+      background:rgba(255,255,255,0.96);
+    }
+    @media(max-width:640px){
+      nav { top:12px; width:calc(100% - 24px); border-radius:12px; }
     }
     .nav-inner {
-      max-width:1200px; margin:0 auto; padding:16px 40px;
+      padding:12px 20px;
       display:flex; align-items:center; justify-content:space-between;
     }
-    @media(max-width:640px){ .nav-inner{ padding:14px 20px; } }
-    .nav-logo img { height:28px; width:auto; display:block; }
+    .nav-logo-img { height:32px; width:auto; display:block; }
     .nav-right { display:flex; align-items:center; gap:24px; }
     .nav-link { font-size:0.83rem; font-weight:500; color:var(--muted); text-decoration:none; transition:color .15s; }
     .nav-link:hover { color:var(--ink); }
@@ -77,7 +97,7 @@
       transition:transform .2s cubic-bezier(0.16,1,0.3,1), background .2s, box-shadow .2s, border-color .2s, color .2s;
     }
     .btn:active { transform:scale(0.98) !important; }
-    .btn-dark { background:var(--ink); color:var(--white); padding:13px 22px; }
+    .btn-dark { background:var(--ink); color:var(--white); padding:10px 18px; font-size:0.83rem; }
     .btn-dark:hover { background:var(--ink-2); transform:translateY(-1px); box-shadow:0 6px 20px rgba(13,20,18,.14); }
     .btn-outline { background:transparent; color:var(--ink); padding:12px 22px; border:1.5px solid var(--border); }
     .btn-outline:hover { border-color:var(--ink); transform:translateY(-1px); }
@@ -92,94 +112,105 @@
     }
     .btn-ghost:hover { border-color:rgba(255,255,255,.4); color:var(--white); transform:translateY(-1px); }
 
-    /* ── HERO ── asymmetric split */
+    /* ── HERO ── */
     .hero {
-      min-height:calc(100dvh - 61px);
+      min-height:100dvh;
       display:grid;
       grid-template-columns:56fr 44fr;
       max-width:1200px; margin:0 auto; padding:0 40px;
       align-items:center;
     }
     @media(max-width:860px){
-      .hero { grid-template-columns:1fr; padding:56px 20px 48px; min-height:auto; gap:48px; }
+      .hero { grid-template-columns:1fr; padding:96px 20px 48px; min-height:auto; gap:36px; }
     }
     .hero-left { padding:80px 56px 80px 0; }
     @media(max-width:860px){ .hero-left{ padding:0; } }
 
-    .hero-tag {
-      display:inline-flex; align-items:center; gap:9px; margin-bottom:28px;
-    }
+    .hero-tag { display:inline-flex; align-items:center; gap:9px; margin-bottom:28px; }
     .hero-tag-dot {
       width:7px; height:7px; background:var(--green); border-radius:50%;
       animation:pulse-dot 2.5s ease-in-out infinite;
     }
-    @keyframes pulse-dot {
-      0%,100%{ transform:scale(1); opacity:1; }
-      50%{ transform:scale(1.6); opacity:.4; }
-    }
     .hero-tag span { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--green-2); }
 
     .hero h1 {
+      font-family:'Eveleth','Outfit',sans-serif;
       font-size:clamp(2.8rem,5.5vw,4.8rem);
-      font-weight:800;
-      line-height:1.03;
-      letter-spacing:-0.04em;
-      color:var(--ink);
-      margin-bottom:22px;
+      font-weight:700; line-height:1.03; letter-spacing:-0.02em;
+      color:var(--ink); margin-bottom:22px;
     }
     .hero h1 .acc { color:var(--accent); }
-
-    .hero-sub {
-      font-size:1.03rem; color:var(--muted); line-height:1.7;
-      max-width:50ch; margin-bottom:32px; font-weight:400;
-    }
+    .hero-sub { font-size:1.03rem; color:var(--muted); line-height:1.7; max-width:50ch; margin-bottom:32px; }
     .hero-actions { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
-
     .hero-proof { display:flex; gap:24px; flex-wrap:wrap; }
     .proof-item { display:flex; align-items:center; gap:7px; font-size:.78rem; font-weight:500; color:var(--muted); }
     .proof-dot { width:5px; height:5px; background:var(--green); border-radius:50%; flex-shrink:0; }
 
-    /* Hero right — pure typography, no card */
+    /* Hero right — photo */
     .hero-right {
+      align-self:stretch;
+      padding:32px 0 32px 40px;
       border-left:1px solid var(--border);
-      padding:80px 0 80px 56px;
-      display:flex; flex-direction:column; gap:32px;
+      display:flex; align-items:stretch;
     }
     @media(max-width:860px){
-      .hero-right { border-left:none; border-top:1px solid var(--border); padding:36px 0 0; }
+      .hero-right { border-left:none; border-top:1px solid var(--border); padding:32px 0 0; height:300px; }
     }
-    .hero-stat-num {
-      font-size:4.8rem; font-weight:800; letter-spacing:-0.05em; line-height:1;
-      color:var(--ink); margin-bottom:5px;
+    .hero-photo-wrap {
+      flex:1; border-radius:14px; overflow:hidden;
+      position:relative; min-height:420px;
     }
-    .hero-stat-num.acc { color:var(--accent); }
-    .hero-stat-label { font-size:.82rem; color:var(--muted); line-height:1.5; }
-    .hero-divider { width:100%; height:1px; background:var(--border); }
-    .hero-checks { display:flex; flex-direction:column; gap:9px; }
-    .hero-check { display:flex; align-items:center; gap:10px; font-size:.84rem; color:var(--muted); font-weight:500; }
-    .hero-check svg { color:var(--green); flex-shrink:0; }
+    @media(max-width:860px){ .hero-photo-wrap{ min-height:0; } }
+    .hero-photo-img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center 15%;
+      display:block;
+    }
+    .hero-photo-wrap::after {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:linear-gradient(to top, rgba(7,71,70,.75) 0%, rgba(7,71,70,.1) 50%, transparent 80%);
+    }
+    .hero-photo-bottom {
+      position:absolute; bottom:20px; left:20px; right:20px; z-index:2;
+      display:flex; justify-content:space-between; align-items:flex-end;
+    }
+    .hero-photo-chip { display:flex; flex-direction:column; }
+    .hero-photo-num { font-family:'Eveleth','Outfit',sans-serif; font-size:2.2rem; font-weight:700; letter-spacing:-0.02em; color:var(--white); line-height:1; }
+    .hero-photo-lbl { font-size:.7rem; color:rgba(255,255,255,.65); font-weight:500; margin-top:3px; }
+    .hero-photo-badge {
+      display:flex; align-items:center; gap:7px;
+      background:rgba(255,255,255,0.12);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:20px; padding:6px 12px;
+    }
+    .hero-photo-badge-dot {
+      width:6px; height:6px; background:var(--green); border-radius:50%;
+      animation:pulse-dot 2.5s ease-in-out infinite;
+    }
+    .hero-photo-badge span { font-size:.67rem; font-weight:600; color:rgba(255,255,255,.85); white-space:nowrap; }
 
-    /* ── STATS BAR ── */
+    /* ── STATS BAR ── 5 stats */
     .stats-bar { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .stats-bar-inner {
       max-width:1200px; margin:0 auto; padding:0 40px;
-      display:grid; grid-template-columns:repeat(4,1fr);
+      display:grid; grid-template-columns:repeat(5,1fr);
     }
-    @media(max-width:640px){
-      .stats-bar-inner { grid-template-columns:repeat(2,1fr); padding:0 20px; }
-    }
-    .stat-cell { padding:36px 28px; border-right:1px solid var(--border); }
+    @media(max-width:900px){ .stats-bar-inner{ grid-template-columns:repeat(3,1fr); padding:0 20px; } }
+    @media(max-width:480px){ .stats-bar-inner{ grid-template-columns:repeat(2,1fr); } }
+    .stat-cell { padding:28px 20px; border-right:1px solid var(--border); }
     .stat-cell:last-child { border-right:none; }
-    @media(max-width:640px){ .stat-cell:nth-child(2){ border-right:none; } }
-    .stat-cell-num { font-size:2.4rem; font-weight:800; letter-spacing:-0.04em; line-height:1; color:var(--ink); margin-bottom:5px; }
-    .stat-cell-label { font-size:.78rem; color:var(--muted); line-height:1.4; }
+    @media(max-width:900px){ .stat-cell:nth-child(3){ border-right:none; } }
+    @media(max-width:480px){ .stat-cell:nth-child(2){ border-right:none; } .stat-cell:nth-child(3){ border-right:1px solid var(--border); } }
+    .stat-cell-num { font-family:'Eveleth','Outfit',sans-serif; font-size:1.9rem; font-weight:700; letter-spacing:-0.02em; line-height:1; color:var(--ink); margin-bottom:5px; }
+    .stat-cell-label { font-size:.7rem; color:var(--muted); line-height:1.4; }
 
     /* ── SECTION ── */
     .section { padding:96px 0; }
     @media(max-width:640px){ .section{ padding:64px 0; } }
     .sec-header { margin-bottom:56px; }
     .eyebrow { font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted-2); display:block; margin-bottom:14px; }
-    .sec-h2 { font-size:clamp(1.9rem,3.5vw,2.8rem); font-weight:800; letter-spacing:-0.03em; line-height:1.07; color:var(--ink); margin-bottom:14px; }
+    .sec-h2 { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(1.9rem,3.5vw,2.8rem); font-weight:700; letter-spacing:-0.01em; line-height:1.07; color:var(--ink); margin-bottom:14px; }
     .sec-sub { font-size:.97rem; color:var(--muted); line-height:1.7; max-width:56ch; }
 
     /* ── PROBLEM ── */
@@ -187,26 +218,24 @@
     .problem-rows { display:flex; flex-direction:column; }
     .problem-row {
       display:grid; grid-template-columns:64px 1fr;
-      background:var(--white);
-      border-bottom:1px solid var(--border);
+      background:var(--white); border-bottom:1px solid var(--border);
       transition:background .2s;
     }
     .problem-row:first-child { border-top:1px solid var(--border); }
     .problem-row:hover { background:#fafafa; }
     .problem-idx {
-      padding:32px 0 32px 28px;
-      font-size:.68rem; font-weight:700; letter-spacing:.08em; color:var(--border);
+      padding:32px 0 32px 28px; font-size:.68rem; font-weight:700;
+      letter-spacing:.08em; color:var(--border);
       display:flex; align-items:flex-start; padding-top:36px;
     }
     .problem-body {
-      padding:28px 36px 28px 28px;
-      border-left:1px solid var(--border);
+      padding:28px 36px 28px 28px; border-left:1px solid var(--border);
       display:grid; grid-template-columns:1fr 1fr;
       gap:16px 48px; align-items:start;
     }
     @media(max-width:600px){
-      .problem-body { grid-template-columns:1fr; padding:22px 20px; }
-      .problem-idx { padding:22px 0 22px 20px; }
+      .problem-body{ grid-template-columns:1fr; padding:22px 20px; }
+      .problem-idx{ padding:22px 0 22px 20px; }
     }
     .problem-tag {
       display:inline-block; font-size:.63rem; font-weight:700; letter-spacing:.05em;
@@ -220,7 +249,6 @@
       padding:14px 18px; border-left:2px solid var(--border);
       font-style:italic; align-self:center;
     }
-
     .insight-row {
       margin-top:2px; background:var(--accent);
       padding:26px 36px; display:flex; align-items:flex-start; gap:16px;
@@ -234,8 +262,8 @@
     @media(max-width:600px){ .market-grid{ grid-template-columns:1fr; } }
     .market-panel { padding:52px 44px; }
     .market-panel.light { background:var(--surface); }
-    .market-panel.dark { background:var(--accent); }
-    .market-pct { font-size:clamp(4rem,8vw,7rem); font-weight:800; letter-spacing:-0.05em; line-height:1; margin-bottom:18px; }
+    .market-panel.dark  { background:var(--accent); }
+    .market-pct { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(4rem,8vw,7rem); font-weight:700; letter-spacing:-0.03em; line-height:1; margin-bottom:18px; }
     .market-panel.light .market-pct { color:var(--border); }
     .market-panel.dark  .market-pct { color:var(--green); }
     .market-badge {
@@ -253,10 +281,7 @@
 
     /* ── METHOD ── */
     .method-bg { background:var(--ink); }
-    .method-steps {
-      margin-top:52px; display:grid;
-      grid-template-columns:repeat(4,1fr); gap:2px;
-    }
+    .method-steps { margin-top:52px; display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
     @media(max-width:860px){ .method-steps{ grid-template-columns:1fr 1fr; } }
     @media(max-width:480px){ .method-steps{ grid-template-columns:1fr; } }
     .method-step {
@@ -268,47 +293,77 @@
     .method-num { font-size:.66rem; font-weight:700; letter-spacing:.1em; color:rgba(255,255,255,.18); margin-bottom:18px; }
     .method-step h3 { font-size:.97rem; font-weight:700; color:var(--white); margin-bottom:9px; letter-spacing:-0.01em; }
     .method-step p { font-size:.82rem; color:rgba(255,255,255,.4); line-height:1.65; }
-
     .method-footer {
       margin-top:52px; padding-top:36px;
       border-top:1px solid rgba(255,255,255,.07);
       display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;
     }
-    .method-kpi-num { font-size:3.2rem; font-weight:800; letter-spacing:-0.04em; color:var(--green); line-height:1; }
+    .method-kpi-num { font-family:'Eveleth','Outfit',sans-serif; font-size:3.2rem; font-weight:700; letter-spacing:-0.02em; color:var(--green); line-height:1; }
     .method-kpi-label { font-size:.76rem; color:rgba(255,255,255,.3); margin-top:3px; }
 
-    /* ── RESULTS ── */
-    .results-grid {
-      margin-top:52px; display:grid;
-      grid-template-columns:2fr 1fr 1fr; gap:2px;
-    }
-    @media(max-width:860px){ .results-grid{ grid-template-columns:1fr 1fr; } }
-    @media(max-width:480px){ .results-grid{ grid-template-columns:1fr; } }
-    .result-item {
-      padding:40px 32px; border-left:2px solid transparent;
-      transition:border-color .25s, transform .25s cubic-bezier(0.16,1,0.3,1);
-    }
-    .result-item:hover { border-left-color:var(--green); transform:translateY(-2px); }
-    .result-item.light { background:var(--surface); }
-    .result-item.dark  { background:var(--accent); }
-    .result-num { font-size:clamp(2.8rem,5vw,4.8rem); font-weight:800; letter-spacing:-0.05em; line-height:1; margin-bottom:10px; }
-    .result-item.light .result-num { color:var(--ink); }
-    .result-item.dark  .result-num { color:var(--green); font-size:clamp(4rem,7vw,6.5rem); }
-    .result-item h3 { font-size:.88rem; font-weight:700; margin-bottom:7px; letter-spacing:-0.01em; }
-    .result-item.light h3 { color:var(--ink); }
-    .result-item.dark  h3 { color:rgba(255,255,255,.85); }
-    .result-item p { font-size:.81rem; line-height:1.6; }
-    .result-item.light p { color:var(--muted); }
-    .result-item.dark  p { color:rgba(255,255,255,.5); }
+    /* ── CASES ── */
+    .cases-grid { margin-top:52px; display:grid; grid-template-columns:1.6fr 1fr; gap:2px; }
+    @media(max-width:768px){ .cases-grid{ grid-template-columns:1fr; } }
 
-    .result-bar {
-      margin-top:2px; background:var(--surface);
-      padding:28px 36px; border-top:2px solid var(--green);
-      display:flex; align-items:center; gap:24px; flex-wrap:wrap;
+    .case-card { background:var(--surface); display:flex; flex-direction:column; overflow:hidden; transition:transform .25s cubic-bezier(0.16,1,0.3,1); }
+    .case-card:hover { transform:translateY(-2px); }
+    .case-card.dark { background:var(--accent); }
+
+    .case-photo {
+      width:100%; height:200px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;
+      border-bottom:1px solid var(--border);
     }
-    .result-bar-num { font-size:2.6rem; font-weight:800; letter-spacing:-0.04em; color:var(--accent); flex-shrink:0; }
-    .result-bar-body h4 { font-size:.88rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
-    .result-bar-body p { font-size:.81rem; color:var(--muted); }
+    .case-card.dark .case-photo { background:rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.07); }
+    .case-photo-label { font-size:.62rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+    .case-card:not(.dark) .case-photo-label { color:var(--border); }
+    .case-card.dark .case-photo-label { color:rgba(255,255,255,.2); }
+
+    .case-body { padding:28px 32px 32px; flex:1; display:flex; flex-direction:column; }
+    .case-badge {
+      display:inline-block; align-self:flex-start;
+      font-size:.62rem; font-weight:700; letter-spacing:.06em;
+      text-transform:uppercase; padding:3px 8px; border-radius:3px; margin-bottom:14px;
+    }
+    .case-card:not(.dark) .case-badge { background:var(--border); color:var(--muted); }
+    .case-card.dark .case-badge { background:rgba(82,170,117,.18); color:var(--green); }
+    .case-body h3 { font-size:1.05rem; font-weight:700; letter-spacing:-0.02em; line-height:1.25; margin-bottom:10px; }
+    .case-card:not(.dark) .case-body h3 { color:var(--ink); }
+    .case-card.dark .case-body h3 { color:var(--white); }
+    .case-body p { font-size:.83rem; line-height:1.65; flex:1; }
+    .case-card:not(.dark) .case-body p { color:var(--muted); }
+    .case-card.dark .case-body p { color:rgba(255,255,255,.5); }
+
+    .case-metric { margin-top:20px; padding-top:18px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:8px; }
+    .case-card.dark .case-metric { border-top-color:rgba(255,255,255,.1); }
+    .case-metric-num { font-family:'Eveleth','Outfit',sans-serif; font-size:2rem; font-weight:700; letter-spacing:-0.02em; line-height:1; }
+    .case-card:not(.dark) .case-metric-num { color:var(--accent); }
+    .case-card.dark .case-metric-num { color:var(--green); }
+    .case-metric-lbl { font-size:.77rem; font-weight:500; }
+    .case-card:not(.dark) .case-metric-lbl { color:var(--muted); }
+    .case-card.dark .case-metric-lbl { color:rgba(255,255,255,.4); }
+
+    /* Case strip — full-width horizontal */
+    .case-strip {
+      grid-column:1/-1;
+      background:var(--ink);
+      display:grid; grid-template-columns:260px 1fr auto; gap:0;
+    }
+    @media(max-width:768px){ .case-strip{ grid-template-columns:1fr; } }
+    .case-strip-photo {
+      display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;
+      border-right:1px solid rgba(255,255,255,.06);
+      min-height:160px;
+    }
+    @media(max-width:768px){ .case-strip-photo{ border-right:none; border-bottom:1px solid rgba(255,255,255,.06); min-height:100px; } }
+    .case-strip-body { padding:28px 36px; }
+    .case-strip-body .case-badge { background:rgba(255,255,255,.07); color:rgba(255,255,255,.45); }
+    .case-strip-body h3 { font-size:1rem; font-weight:700; color:var(--white); letter-spacing:-0.02em; margin:10px 0 7px; }
+    .case-strip-body p { font-size:.82rem; color:rgba(255,255,255,.4); line-height:1.65; }
+    .case-strip-stat { padding:28px 40px; border-left:1px solid rgba(255,255,255,.06); display:flex; flex-direction:column; justify-content:center; flex-shrink:0; }
+    @media(max-width:768px){ .case-strip-stat{ border-left:none; border-top:1px solid rgba(255,255,255,.06); padding:20px 28px; } }
+    .case-strip-stat-num { font-size:2.4rem; font-weight:800; letter-spacing:-0.04em; color:var(--green); line-height:1; }
+    .case-strip-stat-lbl { font-size:.74rem; color:rgba(255,255,255,.3); margin-top:5px; }
 
     /* ── BENEFITS ── */
     .benefits-bg { background:var(--surface); }
@@ -330,7 +385,7 @@
       display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
     }
     @media(max-width:768px){ .offer-block{ grid-template-columns:1fr; padding:44px 32px; gap:40px; } }
-    .offer-block h2 { font-size:clamp(1.8rem,3vw,2.5rem); font-weight:800; color:var(--white); letter-spacing:-0.03em; margin-bottom:16px; line-height:1.1; }
+    .offer-block h2 { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(1.8rem,3vw,2.5rem); font-weight:700; color:var(--white); letter-spacing:-0.01em; margin-bottom:16px; line-height:1.1; }
     .offer-block > div > p { color:rgba(255,255,255,.45); font-size:.9rem; line-height:1.7; margin-bottom:28px; }
     .offer-list { display:flex; flex-direction:column; gap:14px; }
     .offer-item { display:flex; gap:12px; align-items:flex-start; }
@@ -382,6 +437,49 @@
     .testi-card:not(.dark) .testi-role { color:var(--muted); }
     .testi-card.dark .testi-role { color:rgba(255,255,255,.38); }
 
+    /* ── REVIEW BELT ── */
+    .review-belt { background: var(--surface); padding: 80px 0; overflow: hidden; }
+    .review-belt-header { text-align: center; margin-bottom: 44px; padding: 0 20px; }
+    .review-belt-header .sec-h2 { margin-bottom: 0; }
+
+    .review-row { position: relative; overflow: hidden; margin-bottom: 12px; }
+    .review-row:last-child { margin-bottom: 0; }
+    .review-row::before,
+    .review-row::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+    }
+    .review-row::before { left: 0; background: linear-gradient(to right, var(--surface), transparent); }
+    .review-row::after  { right: 0; background: linear-gradient(to left,  var(--surface), transparent); }
+
+    .review-track {
+      display: flex; gap: 12px; width: max-content;
+      animation: reviewScroll 50s linear infinite;
+      padding: 4px 0;
+    }
+    .review-track.rev { animation-direction: reverse; }
+    .review-track:hover { animation-play-state: paused; }
+
+    @keyframes reviewScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .rv-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px 22px;
+      width: 290px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: box-shadow .2s, transform .2s cubic-bezier(0.16,1,0.3,1);
+      cursor: default;
+    }
+    .rv-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.07); transform: translateY(-2px); }
+    .rv-stars { display: flex; gap: 3px; }
+    .rv-stars svg { color: #f59e0b; }
+    .rv-quote { font-size: .83rem; color: var(--ink); line-height: 1.65; font-style: italic; flex: 1; }
+    .rv-author { display: flex; flex-direction: column; gap: 2px; border-top: 1px solid var(--border); padding-top: 10px; }
+    .rv-name { font-size: .78rem; font-weight: 700; color: var(--ink); }
+    .rv-role { font-size: .71rem; color: var(--muted); }
+
     /* ── FAQ ── */
     .faq-list { max-width:660px; margin:52px auto 0; }
     .faq-item { border-bottom:1px solid var(--border); }
@@ -401,10 +499,66 @@
 
     /* ── FINAL CTA ── */
     .final-cta { background:var(--ink); padding:112px 0; text-align:center; }
-    .final-cta h2 { font-size:clamp(2rem,4.5vw,3.5rem); font-weight:800; color:var(--white); letter-spacing:-0.04em; line-height:1.05; max-width:680px; margin:0 auto 16px; }
+    .final-cta h2 { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(2rem,4.5vw,3.5rem); font-weight:700; color:var(--white); letter-spacing:-0.02em; line-height:1.05; max-width:680px; margin:0 auto 16px; }
     .final-cta p { font-size:.93rem; color:rgba(255,255,255,.4); max-width:420px; margin:0 auto 36px; line-height:1.7; }
     .final-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
     .final-note { margin-top:32px; font-size:.68rem; color:rgba(255,255,255,.18); letter-spacing:.08em; text-transform:uppercase; }
+
+    /* ── LOGO BELT ── */
+    .logo-belt {
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+    }
+    .logo-belt-label {
+      text-align: center;
+      padding: 28px 20px 16px;
+      font-size: .66rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted-2);
+    }
+    .logo-track-wrap {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 28px;
+    }
+    .logo-track-wrap::before,
+    .logo-track-wrap::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+      pointer-events: none;
+    }
+    .logo-track-wrap::before { left: 0; background: linear-gradient(to right, var(--white), transparent); }
+    .logo-track-wrap::after  { right: 0; background: linear-gradient(to left, var(--white), transparent); }
+    .logo-track {
+      display: flex; gap: 12px;
+      width: max-content;
+      animation: logoScroll 28s linear infinite;
+    }
+    .logo-track:hover { animation-play-state: paused; }
+    @keyframes logoScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .logo-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      white-space: nowrap;
+      transition: border-color .2s, box-shadow .2s;
+      cursor: default;
+      flex-shrink: 0;
+      height: 60px;
+    }
+    .logo-chip:hover { border-color: var(--muted-2); box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+    .logo-chip img {
+      height: 28px; width: auto; max-width: 130px;
+      object-fit: contain; display: block;
+      filter: grayscale(1) opacity(0.55);
+      transition: filter .25s;
+    }
+    .logo-chip:hover img { filter: grayscale(0) opacity(1); }
 
     /* ── FOOTER ── */
     footer { background:#060d0c; color:rgba(255,255,255,.22); text-align:center; padding:28px 20px; font-size:.74rem; }
@@ -414,11 +568,13 @@
 </head>
 <body>
 
-<nav>
+<!-- FLOATING NAV -->
+<nav id="main-nav">
   <div class="nav-inner">
-    <a href="/"><img src="assets/logo.png" alt="Koekoek" style="height:28px;width:auto;" /></a>
+    <a href="/" style="display:flex;align-items:center;height:32px;" aria-label="Koekoek Creative"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108.92 15.41" height="20" style="display:block;fill:#004746"><path d="M28.56,13.91c-.07-.07-.11-.16-.11-.26V2.4c0-.1.04-.19.11-.26.07-.07.16-.11.26-.11h2.34c.1,0,.19.04.26.11.07.07.11.16.11.26v3.46c0,.05.03.09.08.11.05.02.09.01.12-.03l3.27-3.63c.16-.18.37-.28.61-.28h3.23c.07,0,.12.03.15.1s.02.13-.03.18l-4.27,4.64c-.06.07-.09.15-.1.24,0,.09.02.17.07.24l4.58,6.3c.05.06.06.13.02.19-.04.07-.09.1-.18.1h-3.07c-.11,0-.22-.03-.33-.08-.11-.06-.19-.13-.25-.21l-2.9-3.98c-.05-.06-.12-.09-.19-.1-.08,0-.14.02-.19.08l-.41.45c-.13.15-.2.33-.2.54v2.94c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-2.34c-.1,0-.19-.04-.26-.11Z"/><path d="M42.49,13.75c-.77-.33-1.45-.77-2.03-1.34-.58-.56-1.04-1.22-1.38-1.98-.34-.75-.51-1.56-.51-2.42s.17-1.67.51-2.42c.34-.75.8-1.41,1.38-1.98.58-.56,1.25-1.01,2.03-1.34s1.59-.49,2.45-.49,1.69.16,2.47.49,1.45.77,2.03,1.34c.58.56,1.03,1.22,1.37,1.98.33.75.5,1.56.5,2.42s-.17,1.67-.5,2.42c-.33.75-.79,1.41-1.37,1.98-.58.56-1.26,1.01-2.03,1.34s-1.6.49-2.47.49-1.68-.16-2.45-.49ZM43.67,5.02c-.39.17-.74.4-1.04.69-.3.29-.53.64-.7,1.04-.17.4-.25.82-.25,1.28s.08.88.25,1.28c.17.4.4.75.7,1.04.3.29.64.52,1.04.69.39.17.82.25,1.27.25s.89-.08,1.28-.25.74-.4,1.03-.69c.29-.29.52-.64.69-1.04.17-.4.25-.82.25-1.28s-.08-.88-.25-1.28c-.17-.4-.4-.75-.69-1.04-.29-.29-.64-.52-1.03-.69s-.82-.25-1.28-.25-.87.08-1.27.25Z"/><path d="M52.68,13.91c-.07-.07-.11-.16-.11-.26V2.4c0-.1.04-.19.11-.26.07-.07.16-.11.26-.11h8.47c.1,0,.19.04.26.11s.11.16.11.26v2.24c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-5.46c-.08,0-.15.03-.22.09s-.09.13-.09.22v1.11c0,.08.03.15.09.22s.13.09.22.09h4.36c.1,0,.19.04.26.11.07.07.11.16.11.26v2.04c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-4.36c-.08,0-.15.03-.22.09s-.09.13-.09.22v.92c0,.08.03.15.09.22s.13.09.22.09h5.46c.1,0,.19.04.26.11.07.07.11.16.11.26v2.23c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-8.47c-.1,0-.19-.04-.26-.11Z"/><path d="M63.38,13.91c-.07-.07-.11-.16-.11-.26V2.4c0-.1.04-.19.11-.26.07-.07.16-.11.26-.11h2.34c.1,0,.19.04.26.11.07.07.11.16.11.26v3.46c0,.05.03.09.08.11.05.02.09.01.12-.03l3.27-3.63c.16-.18.37-.28.61-.28h3.23c.07,0,.12.03.15.1.03.07.02.13-.03.18l-4.27,4.64c-.06.07-.1.15-.1.24s.02.17.07.24l4.58,6.3c.05.06.06.13.02.19-.04.07-.09.1-.18.1h-3.07c-.11,0-.22-.03-.33-.08-.11-.06-.19-.13-.25-.21l-2.9-3.98c-.05-.06-.12-.09-.19-.1-.08,0-.14.02-.19.08l-.41.45c-.13.15-.2.33-.2.54v2.94c0,.1-.04.19-.11.26s-.16.11-.26.11h-2.34c-.1,0-.19-.04-.26-.11Z"/><path d="M77.31,13.75c-.77-.33-1.45-.77-2.03-1.34-.58-.56-1.04-1.22-1.38-1.98-.34-.75-.51-1.56-.51-2.42s.17-1.67.51-2.42c.34-.75.8-1.41,1.38-1.98.58-.56,1.26-1.01,2.03-1.34.77-.33,1.59-.49,2.45-.49s1.69.16,2.47.49,1.45.77,2.03,1.34c.58.56,1.03,1.22,1.37,1.98.33.75.5,1.56.5,2.42s-.17,1.67-.5,2.42c-.33.75-.79,1.41-1.37,1.98-.58.56-1.26,1.01-2.03,1.34s-1.6.49-2.47.49-1.68-.16-2.45-.49ZM78.49,5.02c-.39.17-.74.4-1.04.69-.3.29-.53.64-.7,1.04s-.25.82-.25,1.28.08.88.25,1.28.4.75.7,1.04c.3.29.64.52,1.04.69s.82.25,1.27.25.89-.08,1.28-.25.74-.4,1.03-.69c.29-.29.52-.64.69-1.04.17-.4.25-.82.25-1.28s-.08-.88-.25-1.28c-.17-.4-.4-.75-.69-1.04-.29-.29-.64-.52-1.03-.69s-.82-.25-1.28-.25-.87.08-1.27.25Z"/><path d="M87.5,13.91c-.07-.07-.11-.16-.11-.26V2.4c0-.1.04-.19.11-.26.07-.07.16-.11.26-.11h8.47c.1,0,.19.04.26.11s.11.16.11.26v2.24c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-5.46c-.08,0-.15.03-.22.09s-.09.13-.09.22v1.11c0,.08.03.15.09.22s.13.09.22.09h4.36c.1,0,.19.04.26.11.07.07.11.16.11.26v2.04c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-4.36c-.08,0-.15.03-.22.09s-.09.13-.09.22v.92c0,.08.03.15.09.22s.13.09.22.09h5.46c.1,0,.19.04.26.11.07.07.11.16.11.26v2.23c0,.1-.04.19-.11.26-.07.07-.16.11-.26.11h-8.47c-.1,0-.19-.04-.26-.11Z"/><path d="M98.19,13.91c-.07-.07-.11-.16-.11-.26V2.4c0-.1.04-.19.11-.26.07-.07.16-.11.26-.11h2.34c.1,0,.19.04.26.11.07.07.11.16.11.26v3.46c0,.05.03.09.08.11.05.02.09.01.12-.03l3.27-3.63c.16-.18.37-.28.61-.28h3.23c.07,0,.12.03.15.1.03.07.02.13-.03.18l-4.27,4.64c-.06.07-.1.15-.1.24s.02.17.07.24l4.58,6.3c.05.06.06.13.02.19-.04.07-.09.1-.18.1h-3.07c-.11,0-.22-.03-.33-.08-.11-.06-.19-.13-.25-.21l-2.9-3.98c-.05-.06-.12-.09-.19-.1-.08,0-.14.02-.19.08l-.41.45c-.13.15-.2.33-.2.54v2.94c0,.1-.04.19-.11.26s-.16.11-.26.11h-2.34c-.1,0-.19-.04-.26-.11Z"/><path d="M20.58,2.89c-.12-1.37-1.13-2.49-2.45-2.79-.17-.07-.39-.1-.69-.1-2.92,0-4.82,2.89-4.82,2.89l2.38,2.34.03-.03c.58.69,1.45,1.13,2.42,1.13.64,0,1.23-.19,1.72-.52v1.52c0,1.86-2.83,3.34-3.92,3.76l-1.04.39,3.92,3.92h2.02l-3.42-3.42c1.42-.72,3.86-2.31,3.86-4.65V2.89h-.01Z"/><path d="M11.93,11.16h-7.56c0,1.75,1.84,2.88,3.4,2.09l2.77-1.4,3.55,3.55h2.02l-4.23-4.23.04-.02Z"/><path d="M0,10.26s8.81-5.05,15.03-5.05v1.04c0,2.21-1.79,4.01-4.01,4.01H0Z"/></svg></a>
     <div class="nav-right">
       <a href="#info" class="nav-link">Werkwijze</a>
+      <a href="#cases" class="nav-link">Cases</a>
       <a href="#demo" class="nav-link">Aanbod</a>
       <a href="mailto:info@koekoekcreative.nl" class="btn btn-dark">Gratis demo →</a>
     </div>
@@ -450,28 +606,17 @@
   </div>
 
   <div class="hero-right r d2">
-    <div>
-      <div class="hero-stat-num">20+</div>
-      <div class="hero-stat-label">gekwalificeerde kandidaten<br>per campagne gemiddeld</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div>
-      <div class="hero-stat-num acc">€500</div>
-      <div class="hero-stat-label">advertentiebudget direct naar Meta<br>geen recruiterfees</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-checks">
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Eerste kandidaten binnen 48 uur
-      </div>
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Quiz-funnel filtert vooraf
-      </div>
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Geen verborgen kosten
+    <div class="hero-photo-wrap">
+      <img src="assets/jasper.jpg" alt="Jasper Koekoek" class="hero-photo-img" />
+      <div class="hero-photo-bottom">
+        <div class="hero-photo-chip">
+          <span class="hero-photo-num">1246+</span>
+          <span class="hero-photo-lbl">kandidaten geworven</span>
+        </div>
+        <div class="hero-photo-badge">
+          <div class="hero-photo-badge-dot"></div>
+          <span>Jasper Koekoek · Oprichter</span>
+        </div>
       </div>
     </div>
   </div>
@@ -480,10 +625,36 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-bar-inner">
-    <div class="stat-cell r"><div class="stat-cell-num">65+</div><div class="stat-cell-label">Kandidaten in één campagnemaand</div></div>
-    <div class="stat-cell r d1"><div class="stat-cell-num">87%</div><div class="stat-cell-label">Goedkoper dan traditionele recruiters</div></div>
-    <div class="stat-cell r d2"><div class="stat-cell-num">13</div><div class="stat-cell-label">Dagen van start tot eerste aanstelling</div></div>
-    <div class="stat-cell r d3"><div class="stat-cell-num">48u</div><div class="stat-cell-label">Eerste kandidaten na livegang</div></div>
+    <div class="stat-cell r"><div class="stat-cell-num">€180K+</div><div class="stat-cell-label">Besteed aan advertenties</div></div>
+    <div class="stat-cell r d1"><div class="stat-cell-num">1246+</div><div class="stat-cell-label">Kandidaten geworven</div></div>
+    <div class="stat-cell r d2"><div class="stat-cell-num">6+ jr</div><div class="stat-cell-label">Ervaring in social recruiting</div></div>
+    <div class="stat-cell r d3"><div class="stat-cell-num">43+</div><div class="stat-cell-label">Plaatsingen verzorgd</div></div>
+    <div class="stat-cell r d4"><div class="stat-cell-num">12+</div><div class="stat-cell-label">Branches, van monteur tot accountmanager</div></div>
+  </div>
+</div>
+
+<!-- LOGO BELT -->
+<div class="logo-belt">
+  <p class="logo-belt-label">Zij gingen je voor</p>
+  <div class="logo-track-wrap">
+    <div class="logo-track">
+      <!-- Set 1 -->
+      <div class="logo-chip"><img src="assets/logos/logo-adg.svg" alt="ADG Groep"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-bremer.svg" alt="Bremer Dakkapellen"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-benning.svg" alt="Benning"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-pliers-peak.png" alt="Pliers Peak Engineering"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-sound.png" alt="Sound"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-ich-bv.webp" alt="ICH BV Pneumatiek"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-intechneau.png" alt="Intechneau"></div>
+      <!-- Set 2 — exact duplicate voor seamless loop -->
+      <div class="logo-chip"><img src="assets/logos/logo-adg.svg" alt="ADG Groep"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-bremer.svg" alt="Bremer Dakkapellen"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-benning.svg" alt="Benning"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-pliers-peak.png" alt="Pliers Peak Engineering"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-sound.png" alt="Sound"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-ich-bv.webp" alt="ICH BV Pneumatiek"></div>
+      <div class="logo-chip"><img src="assets/logos/logo-intechneau.png" alt="Intechneau"></div>
+    </div>
   </div>
 </div>
 
@@ -565,50 +736,74 @@
       <div class="method-step r d3"><div class="method-num">04</div><h3>Optimaliseren</h3><p>We monitoren en sturen bij waar nodig. Elke dag betere resultaten, tot je de juiste persoon hebt gevonden.</p></div>
     </div>
     <div class="method-footer r">
-      <div>
-        <div class="method-kpi-num">5 dagen</div>
-        <div class="method-kpi-label">Van intake tot live campagne</div>
-      </div>
-      <div>
-        <div class="method-kpi-num">48 uur</div>
-        <div class="method-kpi-label">Eerste kandidaten na livegang</div>
-      </div>
+      <div><div class="method-kpi-num">5 dagen</div><div class="method-kpi-label">Van intake tot live campagne</div></div>
+      <div><div class="method-kpi-num">48 uur</div><div class="method-kpi-label">Eerste kandidaten na livegang</div></div>
       <a href="#demo" class="btn btn-green">Plan een demo →</a>
     </div>
   </div>
 </section>
 
-<!-- RESULTS -->
-<section class="section" style="background:var(--white);">
+<!-- CASES -->
+<section class="section" id="cases" style="background:var(--white);">
   <div class="wrap">
     <div class="sec-header">
-      <span class="eyebrow r">Resultaten</span>
-      <h2 class="sec-h2 r d1">Wat het oplevert</h2>
-      <p class="sec-sub r d2">Geen mooie praatjes. Gewoon wat onze klanten hebben bereikt.</p>
+      <span class="eyebrow r">Cases</span>
+      <h2 class="sec-h2 r d1">Zo werkt het in de praktijk</h2>
+      <p class="sec-sub r d2">Geen theorie. Bekijk wat social recruiting heeft opgeleverd voor onze klanten.</p>
     </div>
-    <div class="results-grid">
-      <div class="result-item dark r">
-        <div class="result-num">65+</div>
-        <h3>Kandidaten in 1 maand</h3>
-        <p>Een technisch installatiebedrijf ontving 65+ gekwalificeerde sollicitanten voor drie openstaande functies in één campagnemaand.</p>
+    <div class="cases-grid">
+
+      <!-- Case 1: Featured -->
+      <div class="case-card dark r">
+        <div class="case-photo">
+          <svg width="32" height="32" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+          <span class="case-photo-label">foto volgt</span>
+        </div>
+        <div class="case-body">
+          <span class="case-badge">Installatiebedrijf · Hengelo</span>
+          <h3>Vier maanden zonder monteur. In drie weken opgelost.</h3>
+          <p>Het bedrijf had al via Indeed en een uitzendbureau geprobeerd — zonder resultaat. Opdrachten werden doorgezet omdat er niemand was. Via een gerichte Meta-campagne kwamen er binnen drie weken 43 sollicitaties binnen. Twee monteurs aangenomen, budget: €500.</p>
+          <div class="case-metric">
+            <span class="case-metric-num">43</span>
+            <span class="case-metric-lbl">sollicitaties · 2 monteurs aangenomen · €500 budget</span>
+          </div>
+        </div>
       </div>
-      <div class="result-item light r d1">
-        <div class="result-num">3</div>
-        <h3>Monteurs aangenomen</h3>
-        <p>Vanuit één campagne. Budget: €500 advertentiekosten. Geen recruiterkosten.</p>
+
+      <!-- Case 2 -->
+      <div class="case-card r d1">
+        <div class="case-photo">
+          <svg width="28" height="28" fill="none" stroke="rgba(107,123,121,.35)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+          <span class="case-photo-label">foto volgt</span>
+        </div>
+        <div class="case-body">
+          <span class="case-badge">Automotive · Groningen</span>
+          <h3>Autoverkoper aangesteld in 11 dagen.</h3>
+          <p>Nieuwe showroom, geen naamsbekendheid als werkgever. Indeed leverde niets op. Social recruiting bracht 14 gekwalificeerde kandidaten — aanstelling na 11 dagen.</p>
+          <div class="case-metric">
+            <span class="case-metric-num">11</span>
+            <span class="case-metric-lbl">dagen van start tot aanstelling</span>
+          </div>
+        </div>
       </div>
-      <div class="result-item light r d2">
-        <div class="result-num">13</div>
-        <h3>Dagen tot eerste aanstelling</h3>
-        <p>Van campagnestart tot handtekening. De markt is er — je moet hem bereiken.</p>
+
+      <!-- Case 3: Horizontal strip -->
+      <div class="case-strip r">
+        <div class="case-strip-photo">
+          <svg width="28" height="28" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+          <span style="font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.2);">foto volgt</span>
+        </div>
+        <div class="case-strip-body">
+          <span class="case-badge">Bouw &amp; Materiaal · Hoogeveen</span>
+          <h3>Drie openstaande functies tegelijk ingevuld.</h3>
+          <p>Magazijnmedewerker, buitendienstmedewerker en klantenservicemedewerker — tegelijkertijd open. Via één doorlopende campagne alle drie ingevuld binnen zes weken, zonder recruiter.</p>
+        </div>
+        <div class="case-strip-stat">
+          <div class="case-strip-stat-num">3/3</div>
+          <div class="case-strip-stat-lbl">functies ingevuld<br>binnen 6 weken</div>
+        </div>
       </div>
-    </div>
-    <div class="result-bar r">
-      <div class="result-bar-num">87%</div>
-      <div class="result-bar-body">
-        <h4>Goedkoper dan traditionele recruiters</h4>
-        <p>Gemiddelde recruiter fee: €12.000. Onze kosten: €500 advertentiebudget. Het rekensommetje is snel gemaakt.</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -693,59 +888,59 @@
   </div>
 </div>
 
-<!-- TESTIMONIALS -->
-<section class="section testi-bg">
-  <div class="wrap">
-    <div class="sec-header">
-      <span class="eyebrow r">Ervaringen</span>
-      <h2 class="sec-h2 r d1">Wat klanten zeggen</h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card dark r">
-        <div class="testi-stars">
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="testi-quote">"We zaten al maanden zonder monteur. Binnen twee weken na de campagne hadden we drie goede gesprekken gevoerd en één aangenomen. Het werkt echt."</p>
-        <div class="testi-author">
-          <div class="testi-av">MV</div>
-          <div><div class="testi-name">Marc van den Berg</div><div class="testi-role">Directeur, Van den Berg Installaties</div></div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:2px;">
-        <div class="testi-card r d1">
-          <div class="testi-stars">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <p class="testi-quote">"Recruiter kostte me €11.000. Eén kandidaat die na drie maanden weg was. Dit kostte €500 en ik heb nu twee goede mensen."</p>
-          <div class="testi-author">
-            <div class="testi-av">SH</div>
-            <div><div class="testi-name">Sandra Hoekstra</div><div class="testi-role">Eigenaar, Hoekstra Bouw</div></div>
-          </div>
-        </div>
-        <div class="testi-card r d2">
-          <div class="testi-stars">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <p class="testi-quote">"Sceptisch geweest, eerlijk gezegd. Maar de resultaten spreken voor zich. 40+ serieuze sollicitanten in de eerste twee weken."</p>
-          <div class="testi-author">
-            <div class="testi-av">RL</div>
-            <div><div class="testi-name">Rob Lammers</div><div class="testi-role">HR Manager, Lammers Transport BV</div></div>
-          </div>
-        </div>
-      </div>
+<!-- REVIEW BELT -->
+<section class="review-belt">
+  <div class="review-belt-header r">
+    <span class="eyebrow" style="display:block;margin-bottom:12px;">Ervaringen</span>
+    <h2 class="sec-h2">Wat klanten zeggen</h2>
+  </div>
+
+  <!-- ROW 1 — scrollt naar links -->
+  <div class="review-row">
+    <div class="review-track">
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"We zaten al maanden zonder monteur. Binnen twee weken na de campagne hadden we drie goede gesprekken — en één aangenomen."</p><div class="rv-author"><span class="rv-name">Marc van den Berg</span><span class="rv-role">Directeur, Van den Berg Installaties</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Recruiter vroeg €14.000. Jasper regelde het voor €500 aan advertentiekosten. Drie kandidaten, twee aangenomen. Klaar."</p><div class="rv-author"><span class="rv-name">Peter Luyten</span><span class="rv-role">DGA, Luyten Techniek</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Al onze nieuwe medewerkers komen nu via social recruiting. Nooit meer terug naar Indeed."</p><div class="rv-author"><span class="rv-name">Sandra Veldhuis</span><span class="rv-role">P&O Manager</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Zat een jaar te zoeken. Na twee weken campagne had ik keuze uit acht goede kandidaten. Nog nooit zoiets meegemaakt."</p><div class="rv-author"><span class="rv-name">Thomas Brouwer</span><span class="rv-role">Eigenaar, Brouwer Bouw</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Nieuwe showroom, geen bekendheid als werkgever. 14 gekwalificeerde kandidaten en aanstelling in 11 dagen. Perfect."</p><div class="rv-author"><span class="rv-name">Naomi Willems</span><span class="rv-role">Salesmanager, automotive</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"De quiz-funnel is goud waard. Geen mensen meer die niet in de buurt wonen of niet eens weten wat de functie inhoudt."</p><div class="rv-author"><span class="rv-name">Anne Dekker</span><span class="rv-role">Bedrijfsleider, productie</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Sceptisch geweest, eerlijk gezegd. Maar 40+ serieuze sollicitanten in twee weken spreekt voor zich."</p><div class="rv-author"><span class="rv-name">Rob Lammers</span><span class="rv-role">HR Manager, Lammers Transport BV</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Drie functies tegelijk ingevuld via één campagne. Hadden we dit eerder geweten."</p><div class="rv-author"><span class="rv-name">René Koster</span><span class="rv-role">Operations Manager, warehouse</span></div></div>
+      <!-- duplicate voor naadloze loop -->
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"We zaten al maanden zonder monteur. Binnen twee weken na de campagne hadden we drie goede gesprekken — en één aangenomen."</p><div class="rv-author"><span class="rv-name">Marc van den Berg</span><span class="rv-role">Directeur, Van den Berg Installaties</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Recruiter vroeg €14.000. Jasper regelde het voor €500 aan advertentiekosten. Drie kandidaten, twee aangenomen. Klaar."</p><div class="rv-author"><span class="rv-name">Peter Luyten</span><span class="rv-role">DGA, Luyten Techniek</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Al onze nieuwe medewerkers komen nu via social recruiting. Nooit meer terug naar Indeed."</p><div class="rv-author"><span class="rv-name">Sandra Veldhuis</span><span class="rv-role">P&O Manager</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Zat een jaar te zoeken. Na twee weken campagne had ik keuze uit acht goede kandidaten. Nog nooit zoiets meegemaakt."</p><div class="rv-author"><span class="rv-name">Thomas Brouwer</span><span class="rv-role">Eigenaar, Brouwer Bouw</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Nieuwe showroom, geen bekendheid als werkgever. 14 gekwalificeerde kandidaten en aanstelling in 11 dagen. Perfect."</p><div class="rv-author"><span class="rv-name">Naomi Willems</span><span class="rv-role">Salesmanager, automotive</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"De quiz-funnel is goud waard. Geen mensen meer die niet in de buurt wonen of niet eens weten wat de functie inhoudt."</p><div class="rv-author"><span class="rv-name">Anne Dekker</span><span class="rv-role">Bedrijfsleider, productie</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Sceptisch geweest, eerlijk gezegd. Maar 40+ serieuze sollicitanten in twee weken spreekt voor zich."</p><div class="rv-author"><span class="rv-name">Rob Lammers</span><span class="rv-role">HR Manager, Lammers Transport BV</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Drie functies tegelijk ingevuld via één campagne. Hadden we dit eerder geweten."</p><div class="rv-author"><span class="rv-name">René Koster</span><span class="rv-role">Operations Manager, warehouse</span></div></div>
     </div>
   </div>
+
+  <!-- ROW 2 — scrollt naar rechts -->
+  <div class="review-row">
+    <div class="review-track rev">
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Het systeem werkt echt. Niet alleen beloftes, maar aantoonbare resultaten. Campagne live op maandag, eerste cv's op dinsdag."</p><div class="rv-author"><span class="rv-name">Frank Hendriksen</span><span class="rv-role">Eigenaar, metaalbedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Perfect voor technische functies die je via jobboards nooit vol krijgt. Eindelijk iemand die begrijpt hoe de doelgroep werkt."</p><div class="rv-author"><span class="rv-name">Lisa Timmermans</span><span class="rv-role">HR Adviseur, MKB</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Beste investering van het jaar. Twee vaste krachten voor minder dan wat één recruiter ons normaal kost."</p><div class="rv-author"><span class="rv-name">Ingrid Peters</span><span class="rv-role">Hoofd P&O, productiebedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Jasper denkt mee, communiceert snel en levert wat hij belooft. Precies wat je wil als eigenaar met weinig tijd."</p><div class="rv-author"><span class="rv-name">Daan Vermeer</span><span class="rv-role">Eigenaar, transportbedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Elke sollicitant die bij ons binnenkomt heeft de funnel doorlopen. Geen tijdverspilling meer aan verkeerde gesprekken."</p><div class="rv-author"><span class="rv-name">Miriam Kok</span><span class="rv-role">HR Business Partner</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"40+ reacties op een functie die al maanden openstond. Binnen drie weken ingevuld. Ik had het niet voor mogelijk gehouden."</p><div class="rv-author"><span class="rv-name">Edwin Bakker</span><span class="rv-role">Vestigingsmanager, techniek</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Professioneel, snel en eerlijk. Precies wat je nodig hebt als je geen tijd hebt voor gedoe."</p><div class="rv-author"><span class="rv-name">Hanneke Smeets</span><span class="rv-role">COO, zakelijke dienstverlening</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Recruiter kostte me €11.000. Eén kandidaat die na drie maanden weg was. Dit kostte €500 en ik heb nu twee goede mensen."</p><div class="rv-author"><span class="rv-name">Sandra Hoekstra</span><span class="rv-role">Eigenaar, Hoekstra Bouw</span></div></div>
+      <!-- duplicate voor naadloze loop -->
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Het systeem werkt echt. Niet alleen beloftes, maar aantoonbare resultaten. Campagne live op maandag, eerste cv's op dinsdag."</p><div class="rv-author"><span class="rv-name">Frank Hendriksen</span><span class="rv-role">Eigenaar, metaalbedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Perfect voor technische functies die je via jobboards nooit vol krijgt. Eindelijk iemand die begrijpt hoe de doelgroep werkt."</p><div class="rv-author"><span class="rv-name">Lisa Timmermans</span><span class="rv-role">HR Adviseur, MKB</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Beste investering van het jaar. Twee vaste krachten voor minder dan wat één recruiter ons normaal kost."</p><div class="rv-author"><span class="rv-name">Ingrid Peters</span><span class="rv-role">Hoofd P&O, productiebedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Jasper denkt mee, communiceert snel en levert wat hij belooft. Precies wat je wil als eigenaar met weinig tijd."</p><div class="rv-author"><span class="rv-name">Daan Vermeer</span><span class="rv-role">Eigenaar, transportbedrijf</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Elke sollicitant die bij ons binnenkomt heeft de funnel doorlopen. Geen tijdverspilling meer aan verkeerde gesprekken."</p><div class="rv-author"><span class="rv-name">Miriam Kok</span><span class="rv-role">HR Business Partner</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"40+ reacties op een functie die al maanden openstond. Binnen drie weken ingevuld. Ik had het niet voor mogelijk gehouden."</p><div class="rv-author"><span class="rv-name">Edwin Bakker</span><span class="rv-role">Vestigingsmanager, techniek</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Professioneel, snel en eerlijk. Precies wat je nodig hebt als je geen tijd hebt voor gedoe."</p><div class="rv-author"><span class="rv-name">Hanneke Smeets</span><span class="rv-role">COO, zakelijke dienstverlening</span></div></div>
+      <div class="rv-card"><div class="rv-stars"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><p class="rv-quote">"Recruiter kostte me €11.000. Eén kandidaat die na drie maanden weg was. Dit kostte €500 en ik heb nu twee goede mensen."</p><div class="rv-author"><span class="rv-name">Sandra Hoekstra</span><span class="rv-role">Eigenaar, Hoekstra Bouw</span></div></div>
+    </div>
+  </div>
+
 </section>
 
 <!-- FAQ -->
@@ -805,8 +1000,12 @@
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -28px 0px' });
-
   document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
 </script>
 </body>
 </html>
