@@ -280,7 +280,7 @@
     .market-panel.dark  p { color:rgba(255,255,255,.5); }
 
     /* ── METHOD ── */
-    .method-bg { background:var(--ink); }
+    .method-bg { background:#052f2e; }
     .method-steps { margin-top:52px; display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
     @media(max-width:860px){ .method-steps{ grid-template-columns:1fr 1fr; } }
     @media(max-width:480px){ .method-steps{ grid-template-columns:1fr; } }
@@ -453,15 +453,32 @@
 
     .review-track {
       display: flex; gap: 12px; width: max-content;
+      -webkit-animation: reviewScroll 50s linear infinite;
       animation: reviewScroll 50s linear infinite;
       padding: 4px 0;
+      will-change: transform;
     }
-    .review-track.rev { animation-direction: reverse; }
-    .review-track:hover { animation-play-state: paused; }
+    .review-track.rev {
+      -webkit-animation: reviewScrollRev 50s linear infinite;
+      animation: reviewScrollRev 50s linear infinite;
+    }
+    .review-track:hover { animation-play-state: paused; -webkit-animation-play-state: paused; }
 
+    @-webkit-keyframes reviewScroll {
+      from { -webkit-transform: translateX(0); transform: translateX(0); }
+      to   { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+    }
     @keyframes reviewScroll {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
+    }
+    @-webkit-keyframes reviewScrollRev {
+      from { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+      to   { -webkit-transform: translateX(0); transform: translateX(0); }
+    }
+    @keyframes reviewScrollRev {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
     }
 
     .rv-card {
@@ -560,6 +577,124 @@
     }
     .logo-chip:hover img { filter: grayscale(0) opacity(1); }
 
+    /* ── HERO URGENCY BADGE ── */
+    .hero-urgency { display:inline-flex; align-items:center; gap:8px; background:#fff4ec; border:1px solid #ffdfc0; border-radius:20px; padding:5px 13px; margin-bottom:18px; }
+    .hero-urgency-dot { width:7px; height:7px; background:#f97316; border-radius:50%; animation:pulse-dot 2.5s ease-in-out infinite; flex-shrink:0; }
+    .hero-urgency span { font-size:.69rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#c2410c; }
+
+    /* ── HERO STARS + TRUST ── */
+    .hero-stars { display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+    .hero-stars-badge { display:inline-flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:5px 12px; }
+    .hero-stars-ico { display:flex; gap:2px; color:#f59e0b; }
+    .hero-stars-score { font-size:.75rem; font-weight:700; color:var(--ink); }
+    .hero-trust-logos { display:flex; align-items:center; gap:10px; }
+    .hero-trust-logo { height:18px; width:auto; opacity:.4; filter:grayscale(1); }
+
+    /* ── ICEBERG SECTION ── */
+    .iceberg-section { padding:80px 0 0; overflow:hidden; }
+    @media(max-width:640px){ .iceberg-section{ padding:56px 0 0; } }
+    .iceberg-wrap { max-width:1200px; margin:0 auto; padding:0 40px; }
+    @media(max-width:640px){ .iceberg-wrap{ padding:0 20px; } }
+    .iceberg-visual {
+      margin-top:56px; position:relative;
+      display:flex; flex-direction:column; align-items:stretch;
+      border-radius:16px; overflow:hidden;
+      border:1px solid var(--border);
+    }
+    .ice-above {
+      background:var(--white); padding:40px;
+      display:flex; align-items:center; justify-content:space-between; gap:24px;
+      flex-wrap:wrap;
+    }
+    @media(max-width:640px){ .ice-above{ padding:28px 20px; } }
+    .ice-above-left { }
+    .ice-pct-sm { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(2.2rem,5vw,3.5rem); font-weight:700; letter-spacing:-0.02em; color:var(--muted-2); line-height:1; margin-bottom:6px; }
+    .ice-label-sm { font-size:.78rem; font-weight:600; color:var(--muted); }
+    .ice-source-sm { font-size:.65rem; color:var(--muted-2); margin-top:4px; }
+    .ice-platforms { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .ice-chip { display:flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 14px; }
+    .ice-chip img { height:16px; width:auto; filter:grayscale(1) opacity(.55); }
+    .ice-chip span { font-size:.72rem; font-weight:700; color:var(--muted); }
+    .ice-waterline {
+      background:#e2e7e6; display:flex; align-items:center; gap:12px; padding:10px 40px;
+    }
+    @media(max-width:640px){ .ice-waterline{ padding:10px 20px; } }
+    .ice-waterline-line { flex:1; height:1px; background:var(--muted-2); opacity:.3; }
+    .ice-waterline-label { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+    .ice-below {
+      background:#052f2e; padding:48px 40px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:32px;
+      flex-wrap:wrap;
+    }
+    @media(max-width:640px){ .ice-below{ padding:32px 20px; flex-direction:column; } }
+    .ice-below-left { flex:1; min-width:220px; }
+    .ice-pct-lg { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(3.5rem,8vw,6rem); font-weight:700; letter-spacing:-0.02em; color:var(--green); line-height:1; margin-bottom:8px; }
+    .ice-label-lg { font-size:1.05rem; font-weight:600; color:rgba(255,255,255,.85); margin-bottom:6px; }
+    .ice-source-lg { font-size:.65rem; color:rgba(255,255,255,.28); }
+    .ice-below-right { flex:1; min-width:220px; display:flex; flex-direction:column; gap:20px; justify-content:center; padding-top:8px; }
+    .ice-desc { font-size:.9rem; color:rgba(255,255,255,.5); line-height:1.65; max-width:40ch; }
+    .ice-platforms-dark { display:flex; gap:10px; flex-wrap:wrap; }
+    .ice-chip-dark { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:8px 14px; }
+    .ice-chip-dark img { height:17px; width:auto; filter:brightness(0) invert(1) opacity(.7); }
+    .ice-chip-dark span { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.55); }
+
+    /* ── CASES SLIDER ── */
+    .cases-slider-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; padding-bottom:12px; cursor:grab; }
+    .cases-slider-wrap::-webkit-scrollbar { height:4px; }
+    .cases-slider-wrap::-webkit-scrollbar-track { background:var(--border); border-radius:2px; }
+    .cases-slider-wrap::-webkit-scrollbar-thumb { background:var(--muted-2); border-radius:2px; }
+    .cases-slider { display:flex; gap:16px; width:max-content; }
+    .case-slide { scroll-snap-align:start; width:340px; flex-shrink:0; background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+    @media(max-width:640px){ .case-slide{ width:290px; } }
+    .case-slide-photo { height:200px; overflow:hidden; position:relative; background:var(--surface); }
+    .case-slide-photo img { width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; }
+    .case-slide-body { padding:22px; flex:1; display:flex; flex-direction:column; }
+    .case-slide-badge { display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted-2); margin-bottom:10px; }
+    .case-slide-body h3 { font-size:1rem; font-weight:700; line-height:1.3; color:var(--ink); margin-bottom:8px; letter-spacing:-.02em; }
+    .case-slide-body p { font-size:.82rem; color:var(--muted); line-height:1.6; flex:1; }
+    .case-slide-metric { margin-top:16px; padding-top:14px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:7px; }
+    .case-slide-num { font-family:'Eveleth','Outfit',sans-serif; font-size:1.7rem; font-weight:700; letter-spacing:-.02em; color:var(--accent); line-height:1; }
+    .case-slide-lbl { font-size:.72rem; color:var(--muted); font-weight:500; }
+    @media(max-width:640px){ .cases-slider-outer{ padding:0 20px !important; } }
+
+    /* ── PRICING CALLOUT ── */
+    .pricing-callout { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:28px 32px; margin-top:40px; display:flex; align-items:center; gap:32px; flex-wrap:wrap; }
+    @media(max-width:640px){ .pricing-callout{ padding:20px; gap:16px; } }
+    .pricing-vs { display:flex; align-items:center; gap:16px; flex:1; min-width:240px; }
+    .pricing-col { display:flex; flex-direction:column; }
+    .pricing-lbl { font-size:.62rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--muted-2); margin-bottom:4px; }
+    .pricing-num { font-family:'Eveleth','Outfit',sans-serif; font-size:1.7rem; font-weight:700; letter-spacing:-.02em; line-height:1; }
+    .pricing-num.bad { color:#dc2626; text-decoration:line-through; opacity:.5; }
+    .pricing-num.good { color:var(--green-2); }
+    .pricing-arrow { font-size:1.2rem; color:var(--muted-2); }
+    .pricing-note { font-size:.82rem; color:var(--muted); line-height:1.5; flex:1; min-width:180px; }
+
+    /* ── DEMO FORM ── */
+    .demo-form-wrap { max-width:520px; }
+    .demo-form { display:flex; flex-direction:column; gap:12px; margin-top:24px; }
+    .demo-form input {
+      font-family:'Outfit',sans-serif; font-size:.9rem; font-weight:500;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+      border-radius:8px; padding:13px 16px; color:var(--white);
+      outline:none; transition:border-color .2s;
+      -webkit-appearance:none;
+    }
+    .demo-form input::placeholder { color:rgba(255,255,255,.3); }
+    .demo-form input:focus { border-color:var(--green); }
+    .demo-form button {
+      font-family:'Outfit',sans-serif; font-size:.9rem; font-weight:700;
+      background:var(--green); color:var(--white); border:none; cursor:pointer;
+      border-radius:8px; padding:15px 24px; transition:background .2s, transform .2s;
+    }
+    .demo-form button:hover { background:var(--green-2); transform:translateY(-1px); }
+    .demo-form button:active { transform:scale(.98); }
+    .demo-bullets { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+    .demo-bullet { display:flex; align-items:center; gap:9px; font-size:.78rem; color:rgba(255,255,255,.5); }
+    .demo-bullet svg { flex-shrink:0; color:var(--green); }
+    @media(max-width:760px){
+      .final-cta .wrap[style*="grid"] { grid-template-columns:1fr !important; gap:40px !important; }
+    }
+
     /* ── FOOTER ── */
     footer { background:#060d0c; color:rgba(255,255,255,.22); text-align:center; padding:28px 20px; font-size:.74rem; }
     footer a { color:rgba(255,255,255,.3); text-decoration:none; transition:color .15s; }
@@ -576,7 +711,7 @@
       <a href="#info" class="nav-link">Werkwijze</a>
       <a href="#cases" class="nav-link">Cases</a>
       <a href="#demo" class="nav-link">Aanbod</a>
-      <a href="mailto:info@koekoekcreative.nl" class="btn btn-dark">Gratis demo →</a>
+      <a href="#demo" class="btn btn-dark">Gratis demo →</a>
     </div>
   </div>
 </nav>
@@ -584,30 +719,47 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-left">
-    <div class="hero-tag r">
-      <span class="hero-tag-dot"></span>
-      <span>Recruitment marketing · Geen bureaukosten</span>
+    <div class="hero-urgency r">
+      <span class="hero-urgency-dot"></span>
+      <span>Nog 2 plekken voor mei</span>
+    </div>
+    <div class="hero-stars r">
+      <div class="hero-stars-badge">
+        <div class="hero-stars-ico">
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <span class="hero-stars-score">4,9/5 · 24+ reviews</span>
+      </div>
+      <div class="hero-trust-logos">
+        <img src="assets/meta.svg" alt="Meta" class="hero-trust-logo">
+        <img src="assets/instagram.svg" alt="Instagram" class="hero-trust-logo">
+        <img src="assets/facebook.svg" alt="Facebook" class="hero-trust-logo">
+      </div>
     </div>
     <h1 class="r d1">
-      Neem je volgende medewerker aan <span class="acc">zonder €10.000+</span> recruiterfees
+      Vind met Koekoek je volgende medewerker <span class="acc">zonder €10.000 recruiter kosten,</span> of wij werken 100% gratis.
     </h1>
     <p class="hero-sub r d2">
-      Wij adverteren jouw vacature op social media, kwalificeren sollicitanten automatisch, en sturen jou alleen de beste kandidaten toe — al binnen 48 uur.
+      Wij adverteren jouw vacature op social media, kwalificeren sollicitanten automatisch en sturen jou alleen de beste kandidaten toe, al binnen 48 uur.
     </p>
     <div class="hero-actions r d3">
-      <a href="#demo" class="btn btn-green">Ontvang gratis demo →</a>
+      <a href="#demo" class="btn btn-green">Plan gratis demo →</a>
       <a href="#info" class="btn btn-outline">Meer informatie</a>
     </div>
     <div class="hero-proof r d4">
       <div class="proof-item"><span class="proof-dot"></span>No cure, no pay</div>
       <div class="proof-item"><span class="proof-dot"></span>Live binnen 5 werkdagen</div>
-      <div class="proof-item"><span class="proof-dot"></span>4.5/5 klantreviews</div>
+      <div class="proof-item"><span class="proof-dot"></span>71-82,5% goedkoper dan recruiter</div>
     </div>
   </div>
 
   <div class="hero-right r d2">
     <div class="hero-photo-wrap">
-      <img src="assets/jasper.jpg" alt="Jasper Koekoek" class="hero-photo-img" />
+      <img src="assets/jasper.jpg" alt="Jasper Koekoek" class="hero-photo-img" style="object-position:center top;" />
       <div class="hero-photo-bottom">
         <div class="hero-photo-chip">
           <span class="hero-photo-num">1246+</span>
@@ -625,11 +777,11 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-bar-inner">
-    <div class="stat-cell r"><div class="stat-cell-num">€180K+</div><div class="stat-cell-label">Besteed aan advertenties</div></div>
-    <div class="stat-cell r d1"><div class="stat-cell-num">1246+</div><div class="stat-cell-label">Kandidaten geworven</div></div>
-    <div class="stat-cell r d2"><div class="stat-cell-num">6+ jr</div><div class="stat-cell-label">Ervaring in social recruiting</div></div>
-    <div class="stat-cell r d3"><div class="stat-cell-num">43+</div><div class="stat-cell-label">Plaatsingen verzorgd</div></div>
-    <div class="stat-cell r d4"><div class="stat-cell-num">12+</div><div class="stat-cell-label">Branches, van monteur tot accountmanager</div></div>
+    <div class="stat-cell r"><div class="stat-cell-num">2236+</div><div class="stat-cell-label">Kandidaten geworven</div></div>
+    <div class="stat-cell r d1"><div class="stat-cell-num">43+</div><div class="stat-cell-label">Plaatsingen verzorgd</div></div>
+    <div class="stat-cell r d2"><div class="stat-cell-num">16+</div><div class="stat-cell-label">Bedrijven geholpen</div></div>
+    <div class="stat-cell r d3"><div class="stat-cell-num">6+ jr</div><div class="stat-cell-label">Ervaring in social recruiting</div></div>
+    <div class="stat-cell r d4"><div class="stat-cell-num">€180K+</div><div class="stat-cell-label">Besteed aan advertenties</div></div>
   </div>
 </div>
 
@@ -696,26 +848,64 @@
   </div>
 </section>
 
-<!-- MARKET SPLIT -->
-<section class="section" style="background:var(--white);">
-  <div class="wrap">
+<!-- ICEBERG -->
+<section class="iceberg-section">
+  <div class="iceberg-wrap">
     <div class="sec-header">
       <span class="eyebrow r">De kern van het probleem</span>
-      <h2 class="sec-h2 r d1">Jij mist 85% van de markt</h2>
-      <p class="sec-sub r d2">Slechts 15% van werkend Nederland zoekt actief. Maar 85% staat open voor iets beters — als je ze maar bereikt.</p>
+      <h2 class="sec-h2 r d1">Je vist in de verkeerde vijver</h2>
+      <p class="sec-sub r d2">Jobboards en LinkedIn bereiken alleen de 12,3% die actief zoekt. De andere 43,8% staat open voor iets beters, maar scrollt op Instagram en Facebook.</p>
     </div>
-    <div class="market-grid">
-      <div class="market-panel light r">
-        <div class="market-badge">Jobboards · Indeed · LinkedIn</div>
-        <div class="market-pct">15%</div>
-        <h3>Actief zoekenden</h3>
-        <p>Mensen die actief op zoek zijn naar een baan. Ze staan op jobboards, zijn ingeschreven bij bureaus, en solliciteren massaal. De minst exclusieve groep.</p>
+    <div class="iceberg-visual r">
+      <!-- Boven water -->
+      <div class="ice-above">
+        <div class="ice-above-left">
+          <div class="ice-pct-sm">12,3%</div>
+          <div class="ice-label-sm">Actief werkzoekend</div>
+          <div class="ice-source-sm">Bron: Intelligence Group, 2026Q1</div>
+        </div>
+        <div class="ice-platforms">
+          <div class="ice-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#0077b5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            <span>LinkedIn</span>
+          </div>
+          <div class="ice-chip">
+            <svg width="16" height="16" viewBox="0 0 50 50" fill="#2164f3"><path d="M9 4C6.24 4 4 6.24 4 9v32c0 2.76 2.24 5 5 5h16.5V31h-5v-6h5v-4.5C25.5 15.57 28.57 13 34 13c2.6 0 5.34.49 5.34.49V19h-3c-2.96 0-3.84 1.84-3.84 3.72V25h6.56l-1.05 6H32.5V46H41c2.76 0 5-2.24 5-5V9c0-2.76-2.24-5-5-5H9z"/></svg>
+            <span>Indeed</span>
+          </div>
+        </div>
       </div>
-      <div class="market-panel dark r d1">
-        <div class="market-badge">Social media · Meta</div>
-        <div class="market-pct">85%</div>
-        <h3>Open voor een switch</h3>
-        <p>Ze hebben een baan en zoeken niet actief — maar als de juiste kans voorbijkomt, stappen ze over. Dit zijn de beste kandidaten. En wij bereiken hen precies op het moment dat het telt.</p>
+      <!-- Waterlijn -->
+      <div class="ice-waterline">
+        <div class="ice-waterline-line"></div>
+        <span class="ice-waterline-label">Hier vist iedereen</span>
+        <div class="ice-waterline-line"></div>
+      </div>
+      <!-- Onder water -->
+      <div class="ice-below">
+        <div class="ice-below-left">
+          <div class="ice-pct-lg">43,8%</div>
+          <div class="ice-label-lg">Latent werkzoekend</div>
+          <div class="ice-source-lg">Bron: Intelligence Group, 2025Q3</div>
+          <div class="ice-platforms-dark" style="margin-top:20px;">
+            <div class="ice-chip-dark">
+              <img src="assets/instagram.svg" alt="Instagram">
+              <span>Instagram</span>
+            </div>
+            <div class="ice-chip-dark">
+              <img src="assets/facebook.svg" alt="Facebook">
+              <span>Facebook</span>
+            </div>
+            <div class="ice-chip-dark">
+              <img src="assets/meta.svg" alt="Meta">
+              <span>Meta</span>
+            </div>
+          </div>
+        </div>
+        <div class="ice-below-right">
+          <p class="ice-desc">Ze scrollen door hun feed en zoeken niet actief. Maar als de juiste kans voorbijkomt, stappen ze over. Dit zijn de beste kandidaten, en hier adverteren wij jouw vacature.</p>
+          <a href="#demo" class="btn btn-green" style="align-self:flex-start;">Bereik ook deze groep →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -751,60 +941,74 @@
       <h2 class="sec-h2 r d1">Zo werkt het in de praktijk</h2>
       <p class="sec-sub r d2">Geen theorie. Bekijk wat social recruiting heeft opgeleverd voor onze klanten.</p>
     </div>
-    <div class="cases-grid">
+  </div>
+  <div style="max-width:1200px;margin:0 auto;padding:0 40px;" class="r cases-slider-outer">
+    <div class="cases-slider-wrap" id="casesSlider">
+      <div class="cases-slider">
 
-      <!-- Case 1: Featured -->
-      <div class="case-card dark r">
-        <div class="case-photo">
-          <svg width="32" height="32" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-          <span class="case-photo-label">foto volgt</span>
-        </div>
-        <div class="case-body">
-          <span class="case-badge">Installatiebedrijf · Hengelo</span>
-          <h3>Vier maanden zonder monteur. In drie weken opgelost.</h3>
-          <p>Het bedrijf had al via Indeed en een uitzendbureau geprobeerd — zonder resultaat. Opdrachten werden doorgezet omdat er niemand was. Via een gerichte Meta-campagne kwamen er binnen drie weken 43 sollicitaties binnen. Twee monteurs aangenomen, budget: €500.</p>
-          <div class="case-metric">
-            <span class="case-metric-num">43</span>
-            <span class="case-metric-lbl">sollicitaties · 2 monteurs aangenomen · €500 budget</span>
+        <div class="case-slide">
+          <div class="case-slide-photo">
+            <img src="assets/cases/adg.jpg" alt="ADG Groep">
+          </div>
+          <div class="case-slide-body">
+            <span class="case-slide-badge">Automotive · Groningen</span>
+            <h3>ADG Groep: gestopt met inschakelen van recruiters</h3>
+            <p>Monteurs, verkopers en service adviseurs via social recruiting geworven. ADG werkt nu structureel met Koekoek en schakelt geen externe recruiters meer in.</p>
+            <div class="case-slide-metric">
+              <span class="case-slide-num">11</span>
+              <span class="case-slide-lbl">dagen van start tot aanstelling</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Case 2 -->
-      <div class="case-card r d1">
-        <div class="case-photo">
-          <svg width="28" height="28" fill="none" stroke="rgba(107,123,121,.35)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-          <span class="case-photo-label">foto volgt</span>
-        </div>
-        <div class="case-body">
-          <span class="case-badge">Automotive · Groningen</span>
-          <h3>Autoverkoper aangesteld in 11 dagen.</h3>
-          <p>Nieuwe showroom, geen naamsbekendheid als werkgever. Indeed leverde niets op. Social recruiting bracht 14 gekwalificeerde kandidaten — aanstelling na 11 dagen.</p>
-          <div class="case-metric">
-            <span class="case-metric-num">11</span>
-            <span class="case-metric-lbl">dagen van start tot aanstelling</span>
+        <div class="case-slide">
+          <div class="case-slide-photo">
+            <img src="assets/cases/benning.jpg" alt="Benningbouw">
+          </div>
+          <div class="case-slide-body">
+            <span class="case-slide-badge">Bouw · Regio Oost</span>
+            <h3>Benningbouw: binnen 11 dagen een nieuwe timmerman</h3>
+            <p>Via een gerichte Meta-campagne kwamen er meerdere gekwalificeerde timmerlieden op. Binnen 11 dagen aanstelling afgerond. Geen uitzendbureau, geen recruiter.</p>
+            <div class="case-slide-metric">
+              <span class="case-slide-num">11</span>
+              <span class="case-slide-lbl">dagen van start tot aanstelling</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Case 3: Horizontal strip -->
-      <div class="case-strip r">
-        <div class="case-strip-photo">
-          <svg width="28" height="28" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4-4 4 4 4-6 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-          <span style="font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.2);">foto volgt</span>
+        <div class="case-slide">
+          <div class="case-slide-photo">
+            <img src="assets/cases/intechneau.jpg" alt="Intechneau Ruinen">
+          </div>
+          <div class="case-slide-body">
+            <span class="case-slide-badge">Techniek · Ruinen</span>
+            <h3>Intechneau: 2 nieuwe monteurs via social recruiting</h3>
+            <p>Twee technische functies tegelijk opengesteld. Via Facebook en Instagram campagnes werden beide posities ingevuld met gekwalificeerde monteurs uit de regio.</p>
+            <div class="case-slide-metric">
+              <span class="case-slide-num">2</span>
+              <span class="case-slide-lbl">monteurs aangenomen</span>
+            </div>
+          </div>
         </div>
-        <div class="case-strip-body">
-          <span class="case-badge">Bouw &amp; Materiaal · Hoogeveen</span>
-          <h3>Drie openstaande functies tegelijk ingevuld.</h3>
-          <p>Magazijnmedewerker, buitendienstmedewerker en klantenservicemedewerker — tegelijkertijd open. Via één doorlopende campagne alle drie ingevuld binnen zes weken, zonder recruiter.</p>
-        </div>
-        <div class="case-strip-stat">
-          <div class="case-strip-stat-num">3/3</div>
-          <div class="case-strip-stat-lbl">functies ingevuld<br>binnen 6 weken</div>
-        </div>
-      </div>
 
+        <div class="case-slide">
+          <div class="case-slide-photo">
+            <img src="assets/cases/ich-bv.jpg" alt="ICH BV">
+          </div>
+          <div class="case-slide-body">
+            <span class="case-slide-badge">Industrie · Nederland</span>
+            <h3>Industrial Components Holland: 84 sollicitanten in 3 weken</h3>
+            <p>Een technische functie die al maanden openstond. Na de social recruiting campagne kwamen er 84 sollicitanten binnen in drie weken tijd.</p>
+            <div class="case-slide-metric">
+              <span class="case-slide-num">84</span>
+              <span class="case-slide-lbl">sollicitanten binnen 3 weken</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+    <p style="font-size:.72rem;color:var(--muted-2);margin-top:10px;padding-left:2px;">Sleep om meer cases te zien</p>
   </div>
 </section>
 
@@ -813,7 +1017,7 @@
   <div class="wrap">
     <div class="sec-header">
       <span class="eyebrow r">Waarom wij</span>
-      <h2 class="sec-h2 r d1">Alles geregeld,<br>jij hires.</h2>
+      <h2 class="sec-h2 r d1">Wij zorgen voor sollicitanten,<br>zodat jij snel kan schakelen.</h2>
     </div>
     <div class="benefits-grid">
       <div class="benefit-item r">
@@ -841,6 +1045,21 @@
         <div><h3>Wij bouwen alles</h3><p>Advertenties, landingspagina, quiz-funnel, optimalisatie — van A tot Z. Jij hoeft alleen de gesprekken te plannen.</p></div>
       </div>
     </div>
+    <div class="pricing-callout r">
+      <div class="pricing-vs">
+        <div class="pricing-col">
+          <span class="pricing-lbl">Recruiter</span>
+          <span class="pricing-num bad">€10.000+</span>
+        </div>
+        <span class="pricing-arrow">→</span>
+        <div class="pricing-col">
+          <span class="pricing-lbl">Koekoek</span>
+          <span class="pricing-num good">71-82,5% goedkoper</span>
+        </div>
+      </div>
+      <p class="pricing-note">Geen plaatsingskosten van 15-25% van een jaarsalaris. Geen cure, geen pay. Wij nemen al het risico.</p>
+      <a href="#demo" class="btn btn-green">Plan gratis demo →</a>
+    </div>
   </div>
 </section>
 
@@ -856,7 +1075,7 @@
       <div>
         <h2>Eén campagne.<br>Tientallen kandidaten.</h2>
         <p>Je betaalt €500 direct aan Meta voor advertentiekosten. Dat is alles. Wij bouwen de volledige campagne: advertentie, quiz-funnel, landingspagina en optimalisatie.</p>
-        <a href="mailto:info@koekoekcreative.nl" class="btn btn-green">Plan een gratis demo →</a>
+        <a href="mailto:jasper@koekoekcreative.nl" class="btn btn-green">Plan een gratis demo →</a>
         <div class="guarantee-note"><strong>Geld-terug-garantie.</strong> Geen resultaat binnen de afgesproken periode? Dan betaal je niets voor onze dienstverlening. Punt.</div>
       </div>
       <div>
@@ -884,7 +1103,7 @@
       <div class="perk"><div class="perk-dot"></div>Beperkte plekken</div>
       <div class="perk"><div class="perk-dot"></div>Persoonlijke onboarding</div>
     </div>
-    <a href="mailto:info@koekoekcreative.nl" class="btn btn-green">Meld je aan →</a>
+    <a href="mailto:jasper@koekoekcreative.nl" class="btn btn-green">Meld je aan →</a>
   </div>
 </div>
 
@@ -961,26 +1180,45 @@
 </section>
 
 <!-- FINAL CTA -->
-<div class="final-cta">
-  <div class="wrap r">
-    <h2>Stop met wachten op sollicitanten.<br>Zorg dat ze bij jou aankloppen.</h2>
-    <p>Terwijl jij dit leest zijn er kandidaten op social media die openstaan voor jouw vacature. Je hoeft ze alleen maar te bereiken.</p>
-    <div class="final-actions">
-      <a href="mailto:info@koekoekcreative.nl" class="btn btn-green">Ontvang gratis demo →</a>
-      <a href="tel:+31614495458" class="btn-ghost">
+<div class="final-cta" id="demo">
+  <div class="wrap r" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+    <div>
+      <h2>Plan nu je gratis demo in.</h2>
+      <p style="margin-top:14px;margin-bottom:0;">Ontvang direct een prijsindicatie en ontdek hoe snel jij sollicitanten kan ontvangen.</p>
+      <div class="demo-bullets" style="margin-top:28px;">
+        <div class="demo-bullet"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Direct prijsindicatie ontvangen</div>
+        <div class="demo-bullet"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Tot 82,5% goedkoper dan recruiter</div>
+        <div class="demo-bullet"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Sneller werven, kandidaten binnen 48 uur</div>
+        <div class="demo-bullet"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Gratis design voor jouw functie</div>
+        <div class="demo-bullet"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>No cure, no pay</div>
+      </div>
+    </div>
+    <div class="demo-form-wrap">
+      <form name="demo-aanvraag" method="POST" data-netlify="true" class="demo-form" action="/bedankt">
+        <input type="hidden" name="form-name" value="demo-aanvraag">
+        <input type="text" name="naam" placeholder="Naam" required autocomplete="name">
+        <input type="email" name="email" placeholder="E-mailadres" required autocomplete="email">
+        <input type="tel" name="telefoon" placeholder="Telefoonnummer" required autocomplete="tel">
+        <button type="submit">Plan gratis demo →</button>
+      </form>
+      <div class="final-note" style="margin-top:14px;text-align:left;font-size:.72rem;">No cure no pay &nbsp;·&nbsp; Beperkte plekken &nbsp;·&nbsp; Live binnen 5 dagen</div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:0;padding-top:0;">
+    <div style="display:none" class="final-actions">
+      <a href="tel:+31646528646" class="btn-ghost">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-        Bel direct: +31 6 14 49 54 58
+        Bel direct: +31 6 46 52 86 46
       </a>
     </div>
-    <div class="final-note">No cure no pay &nbsp;·&nbsp; Live binnen 5 dagen &nbsp;·&nbsp; Beperkte plekken</div>
   </div>
 </div>
 
 <footer>
   <p>© 2025 Koekoek Creative · <strong style="color:rgba(255,255,255,.28);">Koekoek Methode™</strong></p>
   <p style="margin-top:8px;">
-    <a href="mailto:info@koekoekcreative.nl">info@koekoekcreative.nl</a> ·
-    <a href="tel:+31614495458">+31 6 14 49 54 58</a> ·
+    <a href="mailto:jasper@koekoekcreative.nl">jasper@koekoekcreative.nl</a> ·
+    <a href="tel:+31646528646">+31 6 46 52 86 46</a> ·
     <a href="#">Privacybeleid</a>
   </p>
 </footer>
