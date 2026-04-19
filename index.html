@@ -640,66 +640,71 @@
     .hero-trust-logo { height:18px; width:auto; opacity:.4; filter:grayscale(1); }
 
     /* ── ICEBERG SECTION ── */
-    .iceberg-section { padding:80px 0; overflow:hidden; }
-    @media(max-width:640px){ .iceberg-section{ padding:56px 0; } }
+    .iceberg-section { padding:96px 0; }
+    @media(max-width:640px){ .iceberg-section{ padding:64px 0; } }
     .iceberg-wrap { max-width:1200px; margin:0 auto; padding:0 40px; }
     @media(max-width:640px){ .iceberg-wrap{ padding:0 20px; } }
 
-    .iceberg-visual {
-      margin-top:56px; position:relative;
-      display:grid; grid-template-columns:1fr 280px;
-      border-radius:16px; overflow:hidden;
-      border:1px solid var(--border);
+    .ice-layout {
+      margin-top:64px;
+      display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center;
     }
-    @media(max-width:860px){ .iceberg-visual{ grid-template-columns:1fr; } }
+    @media(max-width:900px){ .ice-layout{ grid-template-columns:1fr; gap:48px; } }
 
-    .ice-content { display:flex; flex-direction:column; }
+    /* --- Linker kolom: verhaal --- */
+    .ice-story { display:flex; flex-direction:column; gap:28px; }
+    .ice-story-p { font-size:.97rem; color:var(--muted); line-height:1.8; }
+    .ice-story-p strong { color:var(--ink); }
+    .ice-bigstats { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    .ice-bigstat { padding:24px 22px; }
+    .ice-bigstat.light { background:var(--surface); border:1px solid var(--border); }
+    .ice-bigstat.dark  { background:#052f2e; }
+    .ice-bigstat-num { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(1.9rem,3.5vw,2.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1; margin-bottom:6px; }
+    .ice-bigstat.light .ice-bigstat-num { color:var(--ink); }
+    .ice-bigstat.dark  .ice-bigstat-num { color:var(--green); }
+    .ice-bigstat-lbl { font-size:.77rem; line-height:1.45; }
+    .ice-bigstat.light .ice-bigstat-lbl { color:var(--muted); }
+    .ice-bigstat.dark  .ice-bigstat-lbl { color:rgba(255,255,255,.45); }
 
-    .ice-above {
-      background:var(--white); padding:40px;
-      display:flex; align-items:center; justify-content:space-between; gap:24px;
-      flex-wrap:wrap; flex:1;
+    /* --- Rechter kolom: ijsberg visualisatie --- */
+    .ice-visual { display:flex; flex-direction:column; align-items:stretch; gap:0; }
+
+    .ice-zone-above {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px 12px 0 0;
+      padding:24px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
     }
-    @media(max-width:640px){ .ice-above{ padding:28px 20px; } }
-
-    .ice-pct-sm { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(2.2rem,5vw,3.5rem); font-weight:700; letter-spacing:-0.02em; color:var(--muted-2); line-height:1; margin-bottom:6px; }
-    .ice-label-sm { font-size:.78rem; font-weight:600; color:var(--muted); }
-    .ice-source-sm { font-size:.65rem; color:var(--muted-2); margin-top:4px; }
-    .ice-platforms { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .ice-chip { display:flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 14px; }
-    .ice-chip span { font-size:.72rem; font-weight:700; color:var(--muted); }
-
-    .ice-waterline {
-      background:#e2e7e6; display:flex; align-items:center; gap:12px; padding:10px 40px;
+    .ice-zone-below {
+      background:#052f2e; border-radius:0 0 12px 12px;
+      padding:24px 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
     }
-    @media(max-width:640px){ .ice-waterline{ padding:10px 20px; } }
-    .ice-waterline-line { flex:1; height:1px; background:var(--muted-2); opacity:.3; }
-    .ice-waterline-label { font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+    .ice-zone-pct { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; letter-spacing:-0.02em; line-height:1; }
+    .ice-zone-above .ice-zone-pct { color:var(--muted-2); }
+    .ice-zone-below .ice-zone-pct { color:var(--green); }
+    .ice-zone-tag { font-size:.75rem; font-weight:600; margin-top:4px; }
+    .ice-zone-above .ice-zone-tag { color:var(--muted); }
+    .ice-zone-below .ice-zone-tag { color:rgba(255,255,255,.6); }
+    .ice-zone-src { font-size:.62rem; margin-top:2px; }
+    .ice-zone-above .ice-zone-src { color:var(--muted-2); }
+    .ice-zone-below .ice-zone-src { color:rgba(255,255,255,.25); }
+    .ice-chips { display:flex; gap:8px; flex-wrap:wrap; }
+    .ice-chip { display:flex; align-items:center; gap:6px; padding:6px 11px; border-radius:6px; font-size:.68rem; font-weight:700; }
+    .ice-chip.light { background:var(--white); border:1px solid var(--border); color:var(--muted); }
+    .ice-chip.dark  { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.55); }
+    .ice-chip img { height:13px; width:auto; filter:brightness(0) invert(1) opacity(.65); }
 
-    .ice-below {
-      background:#052f2e; padding:48px 40px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:32px;
-      flex-wrap:wrap;
+    /* SVG tussenstuk */
+    .ice-svg-mid {
+      display:flex; flex-direction:column; align-items:center;
+      background:var(--white); border-left:1px solid var(--border); border-right:1px solid var(--border);
+      padding:4px 0; position:relative;
     }
-    @media(max-width:640px){ .ice-below{ padding:32px 20px; flex-direction:column; } }
-
-    .ice-svg-col {
-      background:#052f2e;
-      display:flex; align-items:center; justify-content:center;
-      padding:32px 24px; border-left:1px solid rgba(255,255,255,.07);
+    .ice-svg-mid svg { width:100%; max-width:320px; height:auto; display:block; }
+    .ice-waterline-label {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      background:var(--surface); border:1px solid var(--border); padding:4px 12px;
+      font-size:.58rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+      white-space:nowrap; border-radius:20px;
     }
-    @media(max-width:860px){ .ice-svg-col{ display:none; } }
-    .ice-svg-col img { width:100%; max-width:200px; opacity:.85; }
-    .ice-below-left { flex:1; min-width:220px; }
-    .ice-pct-lg { font-family:'Eveleth','Outfit',sans-serif; font-size:clamp(3.5rem,8vw,6rem); font-weight:700; letter-spacing:-0.02em; color:var(--green); line-height:1; margin-bottom:8px; }
-    .ice-label-lg { font-size:1.05rem; font-weight:600; color:rgba(255,255,255,.85); margin-bottom:6px; }
-    .ice-source-lg { font-size:.65rem; color:rgba(255,255,255,.28); }
-    .ice-below-right { flex:1; min-width:220px; display:flex; flex-direction:column; gap:20px; justify-content:center; padding-top:8px; }
-    .ice-desc { font-size:.9rem; color:rgba(255,255,255,.5); line-height:1.65; max-width:40ch; }
-    .ice-platforms-dark { display:flex; gap:10px; flex-wrap:wrap; }
-    .ice-chip-dark { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:8px 14px; }
-    .ice-chip-dark img { height:17px; width:auto; filter:brightness(0) invert(1) opacity(.7); }
-    .ice-chip-dark span { font-size:.72rem; font-weight:700; color:rgba(255,255,255,.55); }
 
     /* ── CASES SLIDER ── */
     .cases-slider-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; padding-bottom:12px; cursor:grab; }
@@ -925,66 +930,83 @@
 <section class="iceberg-section">
   <div class="iceberg-wrap">
     <div class="sec-header">
-      <span class="eyebrow r">De kern van het probleem</span>
-      <h2 class="sec-h2 r d1">Je vist in de verkeerde vijver</h2>
-      <p class="sec-sub r d2">Jobboards en LinkedIn bereiken alleen de 12,3% die actief zoekt. De andere 43,8% staat open voor iets beters, maar scrollt op Instagram en Facebook.</p>
+      <span class="eyebrow r">De arbeidsmarkt</span>
+      <h2 class="sec-h2 r d1">Je bereikt maar een fractie van<br>alle potentiële kandidaten.</h2>
+      <p class="sec-sub r d2">Iedereen vist op dezelfde kleine plek. De grootste groep is onzichtbaar voor de meeste werkgevers — en dat is precies de kans.</p>
     </div>
-    <div class="iceberg-visual r">
-      <div class="ice-content">
-        <!-- Boven water -->
-        <div class="ice-above">
-          <div class="ice-above-left">
-            <div class="ice-pct-sm">12,3%</div>
-            <div class="ice-label-sm">Actief werkzoekend</div>
-            <div class="ice-source-sm">Bron: Intelligence Group, 2026Q1</div>
+
+    <div class="ice-layout r">
+
+      <!-- LINKS: het verhaal -->
+      <div class="ice-story">
+        <p class="ice-story-p">
+          In Nederland is <strong>slechts 12,3% van alle werkenden actief op zoek</strong> naar een nieuwe baan. Dat zijn de mensen die Indeed checken, op LinkedIn zitten en op vacatures reageren.<br><br>
+          Op dát kleine groepje jaagt iedereen — met recruiters, jobboards en uitzendbureaus. De concurrentie is groot, de kwaliteit wisselend en de kosten hoog.
+        </p>
+
+        <div class="ice-bigstats">
+          <div class="ice-bigstat light">
+            <div class="ice-bigstat-num">450.000+</div>
+            <div class="ice-bigstat-lbl">Latent werkzoekenden in Nederland</div>
           </div>
-          <div class="ice-platforms">
-            <div class="ice-chip">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#0077b5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-              <span>LinkedIn</span>
-            </div>
-            <div class="ice-chip">
-              <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#2557a7"/><text x="4" y="17" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">in</text></svg>
-              <span>Indeed</span>
-            </div>
-          </div>
-        </div>
-        <!-- Waterlijn -->
-        <div class="ice-waterline">
-          <div class="ice-waterline-line"></div>
-          <span class="ice-waterline-label">Zo werft bijna iedereen</span>
-          <div class="ice-waterline-line"></div>
-        </div>
-        <!-- Onder water -->
-        <div class="ice-below">
-          <div class="ice-below-left">
-            <div class="ice-pct-lg">43,8%</div>
-            <div class="ice-label-lg">Latent werkzoekend</div>
-            <div class="ice-source-lg">Bron: Intelligence Group, 2025Q3</div>
-            <div class="ice-platforms-dark" style="margin-top:20px;">
-              <div class="ice-chip-dark">
-                <img src="assets/instagram.svg" alt="Instagram">
-                <span>Instagram</span>
-              </div>
-              <div class="ice-chip-dark">
-                <img src="assets/facebook.svg" alt="Facebook">
-                <span>Facebook</span>
-              </div>
-              <div class="ice-chip-dark">
-                <img src="assets/meta.svg" alt="Meta">
-                <span>Meta</span>
-              </div>
-            </div>
-          </div>
-          <div class="ice-below-right">
-            <p class="ice-desc">Ze scrollen door hun feed en zoeken niet actief. Maar als de juiste kans voorbijkomt, stappen ze over. Dit zijn de beste kandidaten, en hier adverteren wij jouw vacature.</p>
-            <a href="#demo" class="btn btn-green" style="align-self:flex-start;">Bereik ook deze groep →</a>
+          <div class="ice-bigstat dark">
+            <div class="ice-bigstat-num">2 uur</div>
+            <div class="ice-bigstat-lbl">Per dag gemiddeld op social media</div>
           </div>
         </div>
+
+        <p class="ice-story-p">
+          Maar er is een <strong>veel grotere groep</strong>: de 43,8% die niet actief zoekt, maar wél openstaat voor iets beters als het hen voorbijkomt. Meer dan 450.000 mensen in Nederland.<br><br>
+          Ze scrollen niet op Indeed. Ze zijn niet actief op LinkedIn. Maar ze zitten elke dag twee uur op Instagram en Facebook. <strong>Dat is precies waar wij jouw vacature adverteren.</strong>
+        </p>
+
+        <a href="#demo" class="btn btn-green" style="align-self:flex-start;">Bereik ook deze groep →</a>
       </div>
-      <!-- SVG iceberg illustratie -->
-      <div class="ice-svg-col">
-        <img src="assets/iceberg.svg" alt="Iceberg illustratie">
+
+      <!-- RECHTS: ijsberg visualisatie -->
+      <div class="ice-visual r d2">
+
+        <!-- Boven water zone -->
+        <div class="ice-zone-above">
+          <div>
+            <div class="ice-zone-pct">12,3%</div>
+            <div class="ice-zone-tag">Actief werkzoekend</div>
+            <div class="ice-zone-src">Bron: Intelligence Group, 2026Q1</div>
+          </div>
+          <div class="ice-chips">
+            <div class="ice-chip light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0077b5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+            </div>
+            <div class="ice-chip light">
+              <svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="3" fill="#2557a7"/><text x="4" y="17" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">in</text></svg>Indeed
+            </div>
+          </div>
+        </div>
+
+        <!-- IJsberg SVG: tweekleurig, boven=grijs, onder=donkergroen -->
+        <div class="ice-svg-mid">
+          <svg viewBox="0 0 580 900" xmlns="http://www.w3.org/2000/svg">
+            <path d="M459.94 124.7L404.22 240.76L320.64 3.8501L219.32 124.7L171.88 244.67L120.53 153.83L50.4102 335.49H529.6L459.94 124.7ZM122.21 181.95L164.29 266.53L192.5 296.83L275.37 217.42L315.67 27.6001L380.54 239.38L430.7 291.61L457.33 157.02L511.78 321.81H106.82L122.21 181.95Z" fill="#c8d4d3"/>
+            <path d="M571.036 364.75H8.95571C4.34571 364.75 0.595703 361 0.595703 356.37C0.595703 351.77 4.34571 348.02 8.95571 348.02H571.036C575.646 348.02 579.386 351.77 579.386 356.37C579.386 361 575.646 364.75 571.036 364.75Z" fill="#52A976"/>
+            <path d="M50.4123 377.271L21.1523 522.15L71.3124 623.831L122.852 586.221L136.782 715.771L196.672 775.671L230.102 854.37L322.042 896.16L403.532 747.81L451.592 551.4L485.022 626.621L529.602 580.65V377.271H50.4123Z" fill="#052f2e"/>
+          </svg>
+          <div class="ice-waterline-label">Zo werft bijna iedereen</div>
+        </div>
+
+        <!-- Onder water zone -->
+        <div class="ice-zone-below">
+          <div>
+            <div class="ice-zone-pct">43,8%</div>
+            <div class="ice-zone-tag">Latent werkzoekend</div>
+            <div class="ice-zone-src">Bron: Intelligence Group, 2025Q3</div>
+          </div>
+          <div class="ice-chips">
+            <div class="ice-chip dark"><img src="assets/instagram.svg" alt="">Instagram</div>
+            <div class="ice-chip dark"><img src="assets/facebook.svg" alt="">Facebook</div>
+            <div class="ice-chip dark"><img src="assets/meta.svg" alt="">Meta</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
