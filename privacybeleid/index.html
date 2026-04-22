@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Privacybeleid – Koekoek Creative</title>
+  <link rel="preload" href="assets/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/outfit-700.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-400.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-600.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-700.woff2') format('woff2'); font-weight:700; font-display:swap; }
+    @font-face { font-family:'Outfit'; src:url('assets/fonts/outfit-800.woff2') format('woff2'); font-weight:800; font-display:swap; }
+
+    :root {
+      --ink:     #0d1412;
+      --ink-2:   #1a2422;
+      --muted:   #6b7b79;
+      --muted-2: #9aadab;
+      --accent:  #074746;
+      --green:   #52aa75;
+      --green-2: #3d8f5e;
+      --surface: #f5f6f4;
+      --border:  #e2e7e6;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto; padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    @media(max-width:640px){ .nav-inner{ padding: 14px 20px; } }
+    .nav-logo img { height: 28px; width: auto; display: block; }
+    .nav-back {
+      font-size: 0.83rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color .15s;
+    }
+    .nav-back:hover { color: var(--ink); }
+
+    /* CONTENT */
+    .page-wrap {
+      max-width: 720px; margin: 0 auto; padding: 72px 40px 96px;
+    }
+    @media(max-width:640px){ .page-wrap{ padding: 48px 20px 72px; } }
+
+    .page-eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--green-2);
+      margin-bottom: 16px; display: block;
+    }
+
+    .page-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .page-meta {
+      font-size: 0.83rem; color: var(--muted);
+      margin-bottom: 56px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prose h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 40px 0 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .prose p {
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: #3a4a48;
+      margin-bottom: 16px;
+    }
+
+    .prose ul {
+      margin: 12px 0 16px 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .prose ul li {
+      font-size: 0.97rem;
+      line-height: 1.7;
+      color: #3a4a48;
+    }
+
+    .prose a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .prose a:hover { color: var(--green-2); }
+
+    .highlight-box {
+      background: var(--surface);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 0.83rem;
+    }
+    footer a {
+      color: rgba(255,255,255,.45);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    footer a:hover { color: rgba(255,255,255,.8); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">
+      <img src="assets/logo.svg" alt="Koekoek Creative" />
+    </a>
+    <a class="nav-back" href="/">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Terug naar home
+    </a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <span class="page-eyebrow">Juridisch</span>
+  <h1 class="page-title">Privacybeleid</h1>
+  <p class="page-meta">Koekoek Creative &nbsp;·&nbsp; Laatst bijgewerkt op 22-04-2026</p>
+
+  <div class="prose">
+
+    <p>Koekoek Creative hecht veel waarde aan de bescherming van jouw persoonsgegevens en handelt conform de geldende privacywetgeving, waaronder de Algemene Verordening Gegevensbescherming (AVG). Dit privacybeleid informeert je over de manier waarop wij omgaan met de persoonsgegevens die je via onze website of sollicitatieformulieren verstrekt.</p>
+
+    <h2>Wijziging van dit privacybeleid</h2>
+    <p>Koekoek Creative behoudt zich het recht voor om dit privacybeleid te wijzigen. Deze verklaring is afgestemd op het gebruik van de website van Koekoek Creative en de bijbehorende diensten. Eventuele aanpassingen van de website of onze werkwijze kunnen leiden tot wijzigingen in dit beleid. Wij raden je aan om deze pagina regelmatig te raadplegen.</p>
+
+    <h2>Persoonsgegevens</h2>
+    <p>Wanneer je via onze website of via externe sollicitatieformulieren gegevens verstrekt aan Koekoek Creative, geef je toestemming om deze gegevens te registreren in onze database. Wij gebruiken deze gegevens voor onze bedrijfsvoering, zoals het verbeteren van onze dienstverlening, het aanbieden van recruitment marketing services aan onze klanten, en om je op de hoogte te houden van nieuwe diensten, vacatures of campagnes die voor jou relevant kunnen zijn. Alle communicatie bevat, conform de Telecommunicatiewet, een opt-out mogelijkheid om je af te melden of je gegevens te laten wijzigen. Koekoek Creative verkoopt geen persoonlijke gegevens aan derden.</p>
+
+    <h2>Recruitment Marketing Services</h2>
+    <p>Koekoek Creative biedt recruitment marketing services aan, waarbij wij — met jouw toestemming — jouw gegevens kunnen gebruiken om opdrachtgevers te ondersteunen bij hun wervingsdoelstellingen. Dit omvat onder andere het opzetten van advertentiecampagnes, het beheren van vacaturepagina's en het verbeteren van de online zichtbaarheid als werkgever. Bij de verwerking van jouw gegevens voor deze diensten wordt altijd gehandeld conform de AVG.</p>
+
+    <h2>Solliciteren via formulieren</h2>
+    <p>Kandidaten kunnen solliciteren via door ons verstrekte sollicitatieformulieren. Wanneer je een dergelijk formulier invult, verzoeken wij om bepaalde persoonsgegevens die noodzakelijk zijn voor onze dienstverlening. Deze gegevens worden gebruikt om jou in contact te brengen met potentiële werkgevers of om een passende match te maken voor openstaande functies. Door het invullen van deze formulieren geef je toestemming aan Koekoek Creative om jouw gegevens te bewaren en te delen met de desbetreffende opdrachtgevers. Deze partijen zijn gebonden aan dezelfde wettelijke verplichtingen omtrent privacy.</p>
+
+    <div class="highlight-box">
+      <p><strong>Benadering voor andere functies (AVG, art. 6 lid 1 sub f)</strong><br><br>
+      Wanneer je solliciteert via een door Koekoek Creative beheerd formulier of campagne, staat het Koekoek Creative vrij om — op basis van gerechtvaardigd belang conform de AVG — ook contact met je op te nemen voor andere openstaande functies dan de functie waarop je hebt gesolliciteerd. Dit doen wij uitsluitend wanneer wij van mening zijn dat een andere vacature aansluit bij jouw profiel en wensen. Je kunt je hier te allen tijde tegen verzetten door een e-mail te sturen naar <a href="mailto:info@koekoekcreative.nl">info@koekoekcreative.nl</a>, waarna wij jou niet langer benaderen voor andere posities.</p>
+    </div>
+
+    <h2>Cookies</h2>
+    <p>Koekoek Creative maakt gebruik van cookies om het gebruik van onze website te optimaliseren. Cookies zijn kleine bestandjes die door je browser op je apparaat worden opgeslagen. Bij je eerste bezoek vragen wij om je toestemming voor het gebruik van cookies. Je kunt cookies ook uitschakelen via je browserinstellingen, maar dit kan de werking van de website beïnvloeden. Wij maken gebruik van de volgende soorten cookies:</p>
+    <ul>
+      <li><strong>Functionele cookies</strong> — noodzakelijk voor het goed functioneren van de website, zoals het onthouden van voorkeursinstellingen.</li>
+      <li><strong>Analytische cookies (Google Analytics)</strong> — helpen ons inzicht te krijgen in het gebruik van onze website en de effectiviteit van onze campagnes. Gegevens worden geanonimiseerd gedeeld met Google; je IP-adres kan worden opgeslagen op servers in de Verenigde Staten.</li>
+      <li><strong>Marketing- en trackingcookies</strong> — met jouw toestemming plaatsen wij cookies om gerichte advertenties te kunnen tonen, waaronder via Google Analytics Remarketing. Deze gegevens worden niet gekoppeld aan persoonlijk identificeerbare informatie zoals naam of adres.</li>
+    </ul>
+
+    <h2>Social media</h2>
+    <p>Op onze website bieden wij de mogelijkheid om content te delen via sociale media zoals Facebook en Instagram. Deze functies zijn gebaseerd op code die wordt aangeleverd door de platforms zelf en kunnen cookies plaatsen om jouw online gedrag te volgen. Koekoek Creative heeft geen controle over deze cookies. Voor meer informatie verwijzen wij naar de privacyverklaringen van de betreffende sociale mediakanalen.</p>
+
+    <h2>Links naar andere websites</h2>
+    <p>Onze website kan links bevatten naar externe websites. Wanneer je op een dergelijke link klikt, verlaat je onze website. Koekoek Creative is niet verantwoordelijk voor de inhoud of het privacybeleid van externe websites. Wij raden je aan hun privacyverklaringen te lezen voordat je persoonlijke informatie verstrekt.</p>
+
+    <h2>Gegevens inzien, wijzigen of verwijderen</h2>
+    <p>Je hebt te allen tijde het recht om jouw persoonsgegevens in te zien, te corrigeren of te laten verwijderen. Je kunt hiervoor contact opnemen via <a href="mailto:info@koekoekcreative.nl">info@koekoekcreative.nl</a>. Koekoek Creative reageert zo spoedig mogelijk op jouw verzoek en treft de nodige maatregelen om aan jouw wensen te voldoen.</p>
+
+    <p>Je hebt daarnaast het recht om:</p>
+    <ul>
+      <li>bezwaar te maken tegen de verwerking van jouw persoonsgegevens;</li>
+      <li>jouw toestemming voor gegevensverwerking in te trekken — zonder dat dit afbreuk doet aan de rechtmatigheid van eerdere verwerking op basis van die toestemming;</li>
+      <li>een klacht in te dienen bij de Autoriteit Persoonsgegevens via <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener">autoriteitpersoonsgegevens.nl</a>.</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <p>Voor vragen over dit privacybeleid of de verwerking van jouw persoonsgegevens kun je contact opnemen met Koekoek Creative:</p>
+    <ul>
+      <li>E-mail: <a href="mailto:info@koekoekcreative.nl">info@koekoekcreative.nl</a></li>
+      <li>Telefoon: <a href="tel:+31614495458">+31 6 14 49 54 58</a></li>
+    </ul>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Koekoek Creative</p>
+  <p style="margin-top:8px;">
+    <a href="mailto:info@koekoekcreative.nl">info@koekoekcreative.nl</a> &nbsp;·&nbsp;
+    <a href="tel:+31614495458">+31 6 14 49 54 58</a> &nbsp;·&nbsp;
+    <a href="/privacybeleid">Privacybeleid</a>
+  </p>
+</footer>
+
+</body>
+</html>
