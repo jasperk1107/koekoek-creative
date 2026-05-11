@@ -138,25 +138,75 @@
     .proof-item { display:flex; align-items:center; gap:7px; font-size:.78rem; font-weight:500; color:var(--muted); }
     .proof-dot { width:5px; height:5px; background:var(--green); border-radius:50%; flex-shrink:0; }
 
-    /* Hero right — pure typography, no card */
+    /* Hero right — data panel */
     .hero-right {
-      border-left:1px solid var(--border);
-      padding:80px 0 80px 56px;
-      display:flex; flex-direction:column; gap:32px;
+      padding:40px 0 40px 40px;
+      align-self: stretch;
+      display: flex;
+      align-items: stretch;
     }
     @media(max-width:860px){
-      .hero-right { border-left:none; border-top:1px solid var(--border); padding:36px 0 0; }
+      .hero-right { padding:0; }
     }
-    .hero-stat-num {
-      font-size:4.8rem; font-weight:800; letter-spacing:-0.05em; line-height:1;
-      color:var(--ink); margin-bottom:5px;
+    .hero-data-panel {
+      width: 100%;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+      min-height: 440px;
     }
-    .hero-stat-num.acc { color:var(--accent); }
-    .hero-stat-label { font-size:.82rem; color:var(--muted); line-height:1.5; }
-    .hero-divider { width:100%; height:1px; background:var(--border); }
-    .hero-checks { display:flex; flex-direction:column; gap:9px; }
-    .hero-check { display:flex; align-items:center; gap:10px; font-size:.84rem; color:var(--muted); font-weight:500; }
-    .hero-check svg { color:var(--green); flex-shrink:0; }
+    @media(max-width:860px){
+      .hero-data-panel { min-height: auto; padding: 32px 28px; border-radius:8px; }
+    }
+    .hero-data-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .hero-data-stat {
+      background: var(--white);
+      padding: 24px 22px;
+    }
+    .hero-data-stat:first-child { border-radius: 8px 0 0 0; }
+    .hero-data-stat:nth-child(2) { border-radius: 0 8px 0 0; }
+    .hero-data-stat:nth-child(3) { border-radius: 0 0 0 8px; }
+    .hero-data-stat:last-child { border-radius: 0 0 8px 0; }
+    .hero-data-num {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .hero-data-num.accent { color: var(--green); }
+    .hero-data-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .hero-data-quote {
+      background: var(--accent);
+      border-radius: 8px;
+      padding: 22px 24px;
+      font-size: 0.84rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.65;
+      font-style: italic;
+    }
+    .hero-data-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .04em;
+    }
 
     /* ── STATS BAR ── */
     .stats-bar { border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -381,6 +431,30 @@
     .testi-card:not(.dark) .testi-role { color:var(--muted); }
     .testi-card.dark .testi-role { color:rgba(255,255,255,.38); }
 
+    /* ── CONTACT FORM ── */
+    .contact-wrap {
+      max-width: 620px; margin: 0 auto;
+    }
+    .contact-form { display:flex; flex-direction:column; gap:14px; margin-top:40px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:560px){ .form-row { grid-template-columns:1fr; } }
+    .form-field { display:flex; flex-direction:column; gap:6px; }
+    .form-field label { font-size:.75rem; font-weight:600; color:var(--muted); letter-spacing:.05em; text-transform:uppercase; }
+    .form-field input,
+    .form-field textarea {
+      font-family:'Outfit',sans-serif; font-size:.92rem; color:var(--ink);
+      background:var(--surface); border:1.5px solid var(--border);
+      border-radius:6px; padding:12px 14px;
+      transition:border-color .15s, box-shadow .15s;
+      outline:none; width:100%;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(7,71,70,.08);
+    }
+    .form-field textarea { resize:vertical; min-height:110px; }
+
     /* ── FAQ ── */
     .faq-list { max-width:660px; margin:52px auto 0; }
     .faq-item { border-bottom:1px solid var(--border); }
@@ -432,45 +506,45 @@
       <span>Recruitment marketing · Geen bureaukosten</span>
     </div>
     <h1 class="r d1">
-      Neem je volgende medewerker aan <span class="acc">zonder €10.000+</span> recruiterfees
+      Vind jouw volgende medewerker <span class="acc">zonder €10.000+</span> plaatsingskosten
     </h1>
     <p class="hero-sub r d2">
       Wij adverteren jouw vacature op social media, kwalificeren sollicitanten automatisch, en sturen jou alleen de beste kandidaten toe — al binnen 48 uur.
     </p>
     <div class="hero-actions r d3">
       <a href="#demo" class="btn btn-green">Ontvang gratis demo →</a>
-      <a href="#info" class="btn btn-outline">Meer informatie</a>
+      <a href="https://calendar.app.google/av7wnoA2Cb7KbLjQ7" target="_blank" rel="noopener" class="btn btn-outline">Meer informatie</a>
     </div>
     <div class="hero-proof r d4">
       <div class="proof-item"><span class="proof-dot"></span>No cure, no pay</div>
       <div class="proof-item"><span class="proof-dot"></span>Live binnen 5 werkdagen</div>
-      <div class="proof-item"><span class="proof-dot"></span>4.5/5 klantreviews</div>
+      <div class="proof-item"><span class="proof-dot"></span>1246+ kandidaten bereikt</div>
     </div>
   </div>
 
   <div class="hero-right r d2">
-    <div>
-      <div class="hero-stat-num">20+</div>
-      <div class="hero-stat-label">gekwalificeerde kandidaten<br>per campagne gemiddeld</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div>
-      <div class="hero-stat-num acc">€500</div>
-      <div class="hero-stat-label">advertentiebudget direct naar Meta<br>geen recruiterfees</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-checks">
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Eerste kandidaten binnen 48 uur
+    <div class="hero-data-panel">
+      <div class="hero-data-stats">
+        <div class="hero-data-stat">
+          <div class="hero-data-num accent">1246+</div>
+          <div class="hero-data-label">Gekwalificeerde kandidaten bereikt</div>
+        </div>
+        <div class="hero-data-stat">
+          <div class="hero-data-num">13</div>
+          <div class="hero-data-label">Dagen van start tot eerste aanstelling</div>
+        </div>
+        <div class="hero-data-stat">
+          <div class="hero-data-num">65+</div>
+          <div class="hero-data-label">Sollicitanten in één campagnemaand</div>
+        </div>
+        <div class="hero-data-stat">
+          <div class="hero-data-num">87%</div>
+          <div class="hero-data-label">Goedkoper dan een traditionele recruiter</div>
+        </div>
       </div>
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Quiz-funnel filtert vooraf
-      </div>
-      <div class="hero-check">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        Geen verborgen kosten
+      <div class="hero-data-quote">
+        "Binnen twee weken hadden we drie monteurs aangenomen. En dat voor een fractie van wat een recruiter had gekost."
+        <cite>— Eigenaar installatiebedrijf, Groningen</cite>
       </div>
     </div>
   </div>
@@ -480,7 +554,7 @@
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-cell r"><div class="stat-cell-num">65+</div><div class="stat-cell-label">Kandidaten in één campagnemaand</div></div>
-    <div class="stat-cell r d1"><div class="stat-cell-num">87%</div><div class="stat-cell-label">Goedkoper dan traditionele recruiters</div></div>
+    <div class="stat-cell r d1"><div class="stat-cell-num">€23.474</div><div class="stat-cell-label">Uitgegeven aan advertenties voor klanten</div></div>
     <div class="stat-cell r d2"><div class="stat-cell-num">13</div><div class="stat-cell-label">Dagen van start tot eerste aanstelling</div></div>
     <div class="stat-cell r d3"><div class="stat-cell-num">48u</div><div class="stat-cell-label">Eerste kandidaten na livegang</div></div>
   </div>
@@ -660,7 +734,7 @@
       <div>
         <h2>Eén campagne.<br>Tientallen kandidaten.</h2>
         <p>Je betaalt €500 direct aan Meta voor advertentiekosten. Dat is alles. Wij bouwen de volledige campagne: advertentie, quiz-funnel, landingspagina en optimalisatie.</p>
-        <a href="mailto:info@koekoekcreative.nl" class="btn btn-green">Plan een gratis demo →</a>
+        <a href="#contact" class="btn btn-green">Plan een gratis demo →</a>
         <div class="guarantee-note"><strong>Geld-terug-garantie.</strong> Geen resultaat binnen de afgesproken periode? Dan betaal je niets voor onze dienstverlening. Punt.</div>
       </div>
       <div>
@@ -670,7 +744,7 @@
           <div class="offer-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span><strong>Live binnen 5 werkdagen</strong></span></div>
           <div class="offer-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span><strong>Eerste kandidaten binnen 48 uur</strong> na livegang</span></div>
           <div class="offer-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span><strong>No cure, no pay</strong> — geen resultaat, geen rekening</span></div>
-          <div class="offer-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span><strong>Persoonlijke onboarding</strong></span></div>
+          <div class="offer-item"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span><strong>Dedicated onboarding</strong> — wij staan klaar van start tot aanstelling</span></div>
         </div>
       </div>
     </div>
@@ -680,69 +754,56 @@
 <!-- URGENCY -->
 <div class="urgency-wrap">
   <div class="urgency-inner r">
-    <span class="eyebrow" style="display:block;margin:0 auto 14px;">Beperkte beschikbaarheid</span>
-    <h2>De wachtrij groeit.<br>Wacht niet te lang.</h2>
-    <p style="margin-top:12px;">We nemen bewust een beperkt aantal klanten per maand aan. Op dit moment zijn er nog enkele plekken vrij.</p>
+    <span class="eyebrow" style="display:block;margin:0 auto 14px;">Hoe wij werken</span>
+    <h2>Wij doen het werk.<br>Jij voert de gesprekken.</h2>
+    <p style="margin-top:12px;">Ons team bouwt en beheert elke campagne van A tot Z — zodat jij je kunt focussen op wat telt: de juiste mensen aannemen.</p>
     <div class="perks">
-      <div class="perk"><div class="perk-dot"></div>Wachtrij groeit wekelijks</div>
-      <div class="perk"><div class="perk-dot"></div>Beperkte plekken</div>
-      <div class="perk"><div class="perk-dot"></div>Persoonlijke onboarding</div>
+      <div class="perk"><div class="perk-dot"></div>No cure, no pay</div>
+      <div class="perk"><div class="perk-dot"></div>Live binnen 5 werkdagen</div>
+      <div class="perk"><div class="perk-dot"></div>Dedicated campagneteam</div>
     </div>
-    <a href="mailto:info@koekoekcreative.nl" class="btn btn-green">Meld je aan →</a>
+    <a href="#contact" class="btn btn-green">Plan een gesprek →</a>
   </div>
 </div>
 
-<!-- TESTIMONIALS -->
-<section class="section testi-bg">
+<!-- CONTACT FORM -->
+<section class="section" id="contact" style="background:var(--surface);">
   <div class="wrap">
-    <div class="sec-header">
-      <span class="eyebrow r">Ervaringen</span>
-      <h2 class="sec-h2 r d1">Wat klanten zeggen</h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card dark r">
-        <div class="testi-stars">
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <p class="testi-quote">"We zaten al maanden zonder monteur. Binnen twee weken na de campagne hadden we drie goede gesprekken gevoerd en één aangenomen. Het werkt echt."</p>
-        <div class="testi-author">
-          <div class="testi-av">MV</div>
-          <div><div class="testi-name">Marc van den Berg</div><div class="testi-role">Directeur, Van den Berg Installaties</div></div>
-        </div>
+    <div class="contact-wrap">
+      <div class="sec-header" style="text-align:center;">
+        <span class="eyebrow r" style="display:block;margin:0 auto 14px;">Gratis demo</span>
+        <h2 class="sec-h2 r d1">Plan een gesprek in</h2>
+        <p class="sec-sub r d2" style="margin:0 auto;">Vertel ons kort wat je zoekt. We nemen binnen één werkdag contact op.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:2px;">
-        <div class="testi-card r d1">
-          <div class="testi-stars">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <form class="contact-form r d2" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p style="display:none;"><label>Niet invullen: <input name="bot-field" /></label></p>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="naam">Naam</label>
+            <input type="text" id="naam" name="naam" placeholder="Jan de Vries" required />
           </div>
-          <p class="testi-quote">"Recruiter kostte me €11.000. Eén kandidaat die na drie maanden weg was. Dit kostte €500 en ik heb nu twee goede mensen."</p>
-          <div class="testi-author">
-            <div class="testi-av">SH</div>
-            <div><div class="testi-name">Sandra Hoekstra</div><div class="testi-role">Eigenaar, Hoekstra Bouw</div></div>
+          <div class="form-field">
+            <label for="bedrijf">Bedrijf</label>
+            <input type="text" id="bedrijf" name="bedrijf" placeholder="Jouw bedrijfsnaam" />
           </div>
         </div>
-        <div class="testi-card r d2">
-          <div class="testi-stars">
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="jan@bedrijf.nl" required />
           </div>
-          <p class="testi-quote">"Sceptisch geweest, eerlijk gezegd. Maar de resultaten spreken voor zich. 40+ serieuze sollicitanten in de eerste twee weken."</p>
-          <div class="testi-author">
-            <div class="testi-av">RL</div>
-            <div><div class="testi-name">Rob Lammers</div><div class="testi-role">HR Manager, Lammers Transport BV</div></div>
+          <div class="form-field">
+            <label for="telefoon">Telefoon</label>
+            <input type="tel" id="telefoon" name="telefoon" placeholder="+31 6 00 00 00 00" />
           </div>
         </div>
-      </div>
+        <div class="form-field">
+          <label for="vacature">Welke functie zoek je?</label>
+          <textarea id="vacature" name="vacature" placeholder="Bijv. allround monteur, chauffeur CE, productiemedewerker..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-green" style="align-self:flex-start;">Verstuur aanvraag →</button>
+      </form>
     </div>
   </div>
 </section>
